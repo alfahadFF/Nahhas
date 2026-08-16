@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>محمصة النحاس | لوحة الإدارة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@500;600;700;800;900&family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --espresso: #2B1810;
+    --espresso-deep: #1A0D08;
+    --copper: #B8703D;
+    --gold: #C9A227;
+    --cream: #FAF3E7;
+    --card-bg: #FFFDF9;
+    --ink: #2A211C;
+    --ink-muted: #7A6A5C;
+    --line: rgba(184,112,61,0.2);
+    --green: #25D366;
+    --green-dark: #1da851;
+    --red: #D9383A;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Tajawal', sans-serif;
+    background: #190F0C;
+    color: var(--ink);
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+  }
+  button { font-family: inherit; cursor: pointer; border: none; }
+  input, textarea, select { font-family: inherit; }
+
+  .app-shell {
+    width: 100%;
+    max-width: 480px;
+    background: var(--cream);
+    min-height: 100vh;
+    box-shadow: 0 0 35px rgba(0,0,0,0.6);
+    padding-bottom: 50px;
+  }
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    background: var(--espresso-deep);
+    border-bottom: 1px solid rgba(201,162,39,0.3);
+  }
+  .topbar-title { font-family: 'Aref Ruqaa', serif; color: var(--gold); font-size: 1.25rem; }
+  
+  .admin-wrap { padding: 16px; }
+  .tabs-nav {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 16px;
+    border-bottom: 1.5px solid var(--line);
+    padding-bottom: 10px;
+    overflow-x: auto;
+  }
+  .tab-btn {
+    padding: 8px 14px;
+    border-radius: 12px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 800;
+    background: #eedfd0;
+    color: var(--espresso);
+    white-space: nowrap;
+  }
+  .tab-btn.active { background: var(--espresso); color: var(--gold); }
+
+  .card-box {
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 6px 16px rgba(43,24,16,0.06);
+  }
+  .card-box h4 { font-family: 'Cairo', sans-serif; font-size: 0.95rem; font-weight: 800; color: var(--espresso); margin-bottom: 10px; }
+  
+  .item-edit-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    gap: 8px;
+  }
+  .item-edit-row:last-child { border-bottom: none; }
+  .item-meta { flex: 1; min-width: 0; }
+  .item-meta h5 { font-family: 'Cairo', sans-serif; font-size: 0.82rem; font-weight: 800; color: var(--ink); }
+  .item-meta span { font-size: 0.7rem; color: var(--ink-muted); }
+  
+  .price-input {
+    width: 80px;
+    padding: 6px;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 800;
+    font-size: 0.82rem;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    text-align: center;
+    background: #fff;
+  }
+  .btn-toggle-avail {
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 800;
+  }
+  .btn-toggle-avail.avail { background: rgba(37,211,102,0.15); color: var(--green-dark); border: 1px solid var(--green); }
+  .btn-toggle-avail.unavail { background: rgba(217,56,58,0.15); color: var(--red); border: 1px solid var(--red); }
+
+  .form-field { margin-bottom: 10px; }
+  .form-field label {
+    display: block;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--copper);
+    margin-bottom: 4px;
+  }
+  .form-field input, .form-field textarea {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 9px 11px;
+    font-size: 0.85rem;
+    background: #fff;
+    outline: none;
+  }
+  .btn-save-action {
+    width: 100%;
+    background: var(--espresso);
+    color: var(--gold);
+    font-family: 'Cairo', sans-serif;
+    font-weight: 800;
+    font-size: 0.85rem;
+    padding: 11px;
+    border-radius: 12px;
+    margin-top: 6px;
+  }
+  .btn-delete { color: var(--red); font-size: 1.1rem; padding: 4px; }
+</style>
+</head>
+<body>
+
+<div class="app-shell">
+  <div class="topbar">
+    <div class="topbar-title">لوحة تحكم محمصة النحاس</div>
+    <a href="menu.html" style="font-family:'Cairo'; font-size:0.75rem; font-weight:700; color:var(--gold);">معاينة المنيو ➔</a>
+  </div>
+
+  <div class="admin-wrap">
+    <div class="tabs-nav">
+      <button class="tab-btn active" onclick="setAdminTab('products')">📦 تعديل الأسعار والتوافر</button>
+      <button class="tab-btn" onclick="setAdminTab('offers')">✨ إدارة العروض (السلايدر)</button>
+      <button class="tab-btn" onclick="setAdminTab('ads')">📣 إدارة الإعلانات</button>
+    </div>
+
+    <div id="tabContainer"></div>
+  </div>
+</div>
+
+<script>
+let currentTab = 'products';
+
+// Datasets synced via LocalStorage
+let productsData = JSON.parse(localStorage.getItem('al_nahas_products')) || [
+  { id: "c1", cat: "coffee", name: "بن عادي محمص (طحن حسب الطلب)", basePrice: 65000, unitType: "weight", isAvailable: true, img: "https://images.unsplash.com/photo-1587734195503-904fca47e0e9?w=500&q=80" },
+  { id: "c2", cat: "coffee", name: "بن فاخر محوج هيل وسط", basePrice: 85000, unitType: "weight", isAvailable: true, img: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=500&q=80" },
+  { id: "c3", cat: "coffee", name: "بن إكسترا ذهبي (خلطة النحاس)", basePrice: 110000, unitType: "weight", isAvailable: true, img: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=500&q=80" },
+  { id: "c4", cat: "coffee", name: "بن ديلوف كولومبي مروق", basePrice: 125000, unitType: "weight", isAvailable: false, img: "https://images.unsplash.com/photo-1509785307050-d4066910ec1e?w=500&q=80" },
+  { id: "n1", cat: "nuts", name: "مكسرات مشكلة إكسترا مدخنة", basePrice: 95000, unitType: "weight", isAvailable: true, img: "https://images.unsplash.com/photo-1536591375315-1b838421a719?w=500&q=80" },
+  { id: "n2", cat: "nuts", name: "كاجو محمص ومملح جامبو", basePrice: 140000, unitType: "weight", isAvailable: true, img: "https://images.unsplash.com/photo-1569300305886-f131a9807530?w=500&q=80" },
+  { id: "n3", cat: "nuts", name: "فستق حلبي محمص نخب أول", basePrice: 160000, unitType: "weight", isAvailable: true, img: "https://images.unsplash.com/photo-1528751014936-863e6e7a319c?w=500&q=80" },
+  { id: "n4", cat: "nuts", name: "بزر أبيض قرع فاخر", basePrice: 45000, unitType: "weight", isAvailable: true, img: "https://images.unsplash.com/photo-1509914398867-279c6d328eb9?w=500&q=80" }
+];
+
+let offersData = JSON.parse(localStorage.getItem('al_nahas_offers')) || [
+  {
+    id: "off-1",
+    title: "بكج السهرة الملوكي الذهبي",
+    badge: "توفير 25%",
+    oldPrice: 120000,
+    newPrice: 90000,
+    img: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&q=80",
+    desc: "نصف كيلو بن فاخر محمص ومطحون طازج + نصف كيلو مكسرات اكسترا مشكلة مدخنة + تشكيلة شوكولا بلجيكية فاخرة."
+  },
+  {
+    id: "off-2",
+    title: "عرض عشاق القهوة المختصة",
+    badge: "الأكثر طلباً",
+    oldPrice: 85000,
+    newPrice: 68000,
+    img: "https://images.unsplash.com/photo-1509785307050-d4066910ec1e?w=600&q=80",
+    desc: "كيلو بن محمص بالدرجة التي تختارها مع علبة سكاكر فاخرة هدية مجانية."
+  }
+];
+
+let adsData = JSON.parse(localStorage.getItem('al_nahas_ads')) || [
+  {
+    id: "ad-1",
+    sponsorName: "مجوهرات الزمرد",
+    title: "أحدث تصاميم الذهب والمجوهرات",
+    desc: "خصومات حصرية 15% لزبائن محمصة النحاس.",
+    phone: "00963991457935",
+    img: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600&q=80"
+  }
+];
+
+function saveData() {
+  localStorage.setItem('al_nahas_products', JSON.stringify(productsData));
+  localStorage.setItem('al_nahas_offers', JSON.stringify(offersData));
+  localStorage.setItem('al_nahas_ads', JSON.stringify(adsData));
+}
+
+function setAdminTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('onclick').includes(`'${tab}'`));
+  });
+  renderTabContent();
+}
+
+function renderTabContent() {
+  const container = document.getElementById('tabContainer');
+  container.innerHTML = '';
+
+  if (currentTab === 'products') {
+    const box = document.createElement('div');
+    box.className = 'card-box';
+    box.innerHTML = '<h4>تعديل الأسعار وحالة التوفر للمنتجات:</h4>';
+
+    productsData.forEach(p => {
+      const row = document.createElement('div');
+      row.className = 'item-edit-row';
+      row.innerHTML = `
+        <div class="item-meta">
+          <h5>${p.name}</h5>
+          <span>${p.unitType === 'weight' ? 'سعر الكيلو الأساسي' : 'سعر القطعة'}</span>
+        </div>
+        <input type="number" class="price-input" value="${p.basePrice}" onchange="updatePrice('${p.id}', this.value)">
+        <button type="button" class="btn-toggle-avail ${p.isAvailable ? 'avail' : 'unavail'}" onclick="toggleAvail('${p.id}')">
+          ${p.isAvailable ? 'متوفر' : 'غير متوفر'}
+        </button>
+      `;
+      box.appendChild(row);
+    });
+    container.appendChild(box);
+
+  } else if (currentTab === 'offers') {
+    const addBox = document.createElement('div');
+    addBox.className = 'card-box';
+    addBox.innerHTML = `
+      <h4>إضافة عرض خاص جديد للسلايدر:</h4>
+      <div class="form-field"><label>عنوان العرض</label><input type="text" id="offTitle"></div>
+      <div class="form-field"><label>شارة الخصم (مثال: خصم 25%)</label><input type="text" id="offBadge"></div>
+      <div class="form-field"><label>السعر القديم</label><input type="number" id="offOldPrice"></div>
+      <div class="form-field"><label>السعر الجديد بعد الخصم</label><input type="number" id="offNewPrice"></div>
+      <div class="form-field"><label>رابط الصورة</label><input type="text" id="offImg" placeholder="https://..."></div>
+      <div class="form-field"><label>تفاصيل العرض</label><textarea id="offDesc"></textarea></div>
+      <button class="btn-save-action" onclick="saveNewOffer()">+ حفظ العرض وإضافته للسلايدر</button>
+    `;
+    container.appendChild(addBox);
+
+    const list = document.createElement('div');
+    list.className = 'card-box';
+    list.innerHTML = '<h4>العروض الحالية في السلايدر:</h4>';
+    offersData.forEach(o => {
+      const row = document.createElement('div');
+      row.className = 'item-edit-row';
+      row.innerHTML = `
+        <div class="item-meta">
+          <h5>${o.title}</h5>
+          <span>${o.newPrice.toLocaleString()} ل.س (بدلاً من ${o.oldPrice.toLocaleString()})</span>
+        </div>
+        <button class="btn-delete" onclick="deleteOffer('${o.id}')">✕</button>
+      `;
+      list.appendChild(row);
+    });
+    container.appendChild(list);
+
+  } else if (currentTab === 'ads') {
+    const addBox = document.createElement('div');
+    addBox.className = 'card-box';
+    addBox.innerHTML = `
+      <h4>إضافة إعلان مدفوع جديد:</h4>
+      <div class="form-field"><label>اسم المتجر المعلن</label><input type="text" id="adSponsor"></div>
+      <div class="form-field"><label>عنوان الإعلان</label><input type="text" id="adTitle"></div>
+      <div class="form-field"><label>رقم واتساب المعلن</label><input type="tel" id="adPhone" placeholder="009639xxxxxxxx" dir="ltr"></div>
+      <div class="form-field"><label>رابط الصورة</label><input type="text" id="adImg" placeholder="https://..."></div>
+      <div class="form-field"><label>تفاصيل الإعلان</label><textarea id="adDesc"></textarea></div>
+      <button class="btn-save-action" onclick="saveNewAd()">+ نشر الإعلان</button>
+    `;
+    container.appendChild(addBox);
+
+    const list = document.createElement('div');
+    list.className = 'card-box';
+    list.innerHTML = '<h4>الإعلانات المنشورة حالياً:</h4>';
+    adsData.forEach(a => {
+      const row = document.createElement('div');
+      row.className = 'item-edit-row';
+      row.innerHTML = `
+        <div class="item-meta">
+          <h5>${a.title}</h5>
+          <span>المعلن: ${a.sponsorName}</span>
+        </div>
+        <button class="btn-delete" onclick="deleteAd('${a.id}')">✕</button>
+      `;
+      list.appendChild(row);
+    });
+    container.appendChild(list);
+  }
+}
+
+function updatePrice(id, val) {
+  const p = productsData.find(x => x.id === id);
+  if (p) {
+    p.basePrice = parseFloat(val) || p.basePrice;
+    saveData();
+  }
+}
+
+function toggleAvail(id) {
+  const p = productsData.find(x => x.id === id);
+  if (p) {
+    p.isAvailable = !p.isAvailable;
+    saveData();
+    renderTabContent();
+  }
+}
+
+function saveNewOffer() {
+  const title = document.getElementById('offTitle').value.trim();
+  const badge = document.getElementById('offBadge').value.trim() || 'عرض خاص';
+  const oldPrice = parseFloat(document.getElementById('offOldPrice').value) || 0;
+  const newPrice = parseFloat(document.getElementById('offNewPrice').value) || 0;
+  const img = document.getElementById('offImg').value.trim() || 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&q=80';
+  const desc = document.getElementById('offDesc').value.trim() || 'عرض خاص من محمصة النحاس';
+
+  if (!title || !newPrice) {
+    alert('يرجى ملء الحقول المطلوبة');
+    return;
+  }
+
+  offersData.unshift({ id: 'off-' + Date.now(), title, badge, oldPrice, newPrice, img, desc });
+  saveData();
+  renderTabContent();
+  alert('تمت إضافة العرض بنجاح!');
+}
+
+function deleteOffer(id) {
+  offersData = offersData.filter(o => o.id !== id);
+  saveData();
+  renderTabContent();
+}
+
+function saveNewAd() {
+  const sponsorName = document.getElementById('adSponsor').value.trim();
+  const title = document.getElementById('adTitle').value.trim();
+  const phone = document.getElementById('adPhone').value.trim() || '00963991457935';
+  const img = document.getElementById('adImg').value.trim() || 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600&q=80';
+  const desc = document.getElementById('adDesc').value.trim() || 'إعلان ترويجي مميز';
+
+  if (!sponsorName || !title) {
+    alert('يرجى ملء الحقول المطلوبة');
+    return;
+  }
+
+  adsData.unshift({ id: 'ad-' + Date.now(), sponsorName, title, phone, img, desc });
+  saveData();
+  renderTabContent();
+  alert('تم نشر الإعلان بنجاح!');
+}
+
+function deleteAd(id) {
+  adsData = adsData.filter(a => a.id !== id);
+  saveData();
+  renderTabContent();
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  renderTabContent();
+});
+</script>
+
+</body>
+</html>
