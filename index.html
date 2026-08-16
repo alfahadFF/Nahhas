@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>محمصة النحاس | المنيو الرقمي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Cairo:wght@500;600;700;800;900&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --espresso: #2B1810;
+    --espresso-deep: #1A0D08;
+    --copper: #B8703D;
+    --copper-light: #D9A066;
+    --gold: #C9A227;
+    --gold-light: #F4D35E;
+    --cream: #FAF3E7;
+    --card-bg: #FFFDF9;
+    --burgundy: #7A2E2E;
+    --ink: #2A211C;
+    --ink-muted: #7A6A5C;
+    --line: rgba(184,112,61,0.2);
+    --green: #25D366;
+    --green-dark: #1da851;
+    --red: #D9383A;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    font-family: 'Tajawal', sans-serif;
+    background: #190F0C;
+    color: var(--ink);
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; border: none; cursor: pointer; background: none; }
+  input, select, textarea { font-family: inherit; }
+
+  .app-shell {
+    width: 100%;
+    max-width: 480px;
+    background: var(--cream);
+    min-height: 100vh;
+    position: relative;
+    box-shadow: 0 0 35px rgba(0,0,0,0.6);
+    padding-bottom: 90px;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3 { font-family: 'Aref Ruqaa', serif; font-weight: 700; }
+
+  /* Top Bar */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    background: linear-gradient(180deg, var(--espresso-deep) 0%, var(--espresso) 100%);
+    position: relative;
+    z-index: 10;
+    border-bottom: 1px solid rgba(201,162,39,0.3);
+  }
+  .brandmark { display: flex; align-items: center; gap: 10px; }
+  .brandmark svg { width: 42px; height: 42px; flex-shrink: 0; }
+  .brandmark .name-ar { font-family: 'Aref Ruqaa', serif; font-size: 1.3rem; color: var(--gold); line-height: 1.1; }
+  .brandmark .name-sub { font-family: 'Cairo', sans-serif; font-size: 0.65rem; color: var(--copper-light); letter-spacing: 0.08em; }
+
+  .topbar-actions { display: flex; align-items: center; gap: 8px; }
+  .btn-topbar-ads {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: var(--espresso-deep);
+    background: linear-gradient(135deg, var(--gold-light), var(--gold));
+    box-shadow: 0 4px 12px rgba(201,162,39,0.35);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  /* 3D Coverflow Hero Slider */
+  .hero-wrap {
+    padding: 12px 0 16px;
+    background: linear-gradient(180deg, var(--espresso) 0%, #20130E 80%, var(--cream) 100%);
+    position: relative;
+  }
+  .hero-title {
+    text-align: center;
+    color: var(--gold);
+    font-size: 1.35rem;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .coverflow {
+    position: relative;
+    height: 240px;
+    perspective: 1200px;
+    width: 100%;
+    overflow: hidden;
+  }
+  .cf-track { position: relative; width: 100%; height: 100%; }
+  .cf-slide {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 72%;
+    height: 100%;
+    margin-left: -36%;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.5s ease, filter 0.5s ease;
+    box-shadow: 0 16px 30px rgba(0,0,0,0.55);
+    border: 1px solid rgba(201,162,39,0.4);
+    background: #000;
+  }
+  .cf-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .cf-slide::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(20,10,6,0.92) 0%, rgba(20,10,6,0.2) 60%, transparent 100%);
+  }
+  .cf-slide .cf-info {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    padding: 12px 14px;
+    z-index: 2;
+  }
+  .cf-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--espresso-deep);
+    font-family: 'Cairo', sans-serif;
+    font-weight: 900;
+    font-size: 0.65rem;
+    padding: 3px 10px;
+    border-radius: 14px;
+    margin-bottom: 4px;
+  }
+  .cf-slide h3 { color: var(--cream); font-size: 1.05rem; margin-bottom: 2px; }
+  .cf-prices { display: flex; align-items: baseline; gap: 8px; }
+  .cf-price-new { font-family: 'Cairo', sans-serif; font-size: 0.95rem; font-weight: 800; color: var(--gold-light); }
+  .cf-price-old { font-family: 'Cairo', sans-serif; font-size: 0.72rem; text-decoration: line-through; opacity: 0.7; color: #fff; }
+  .cf-tap { font-family: 'Cairo', sans-serif; font-size: 0.62rem; color: var(--gold); margin-top: 3px; }
+  
+  .cf-dots { display: flex; justify-content: center; gap: 6px; margin-top: 8px; }
+  .cf-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(250,243,231,0.3); transition: 0.3s; }
+  .cf-dot.active { width: 18px; border-radius: 4px; background: var(--gold); }
+
+  /* Product Filter Bar (Pure Category Filtering) */
+  .catnav-wrap {
+    position: sticky;
+    top: 0;
+    z-index: 25;
+    background: var(--cream);
+    padding: 12px 0 8px;
+    border-bottom: 1px solid var(--line);
+    box-shadow: 0 4px 12px rgba(43,24,16,0.06);
+  }
+  .catnav {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 0 16px 4px;
+    scrollbar-width: none;
+  }
+  .catnav::-webkit-scrollbar { display: none; }
+  .cat-btn {
+    flex-shrink: 0;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 700;
+    font-size: 0.78rem;
+    padding: 8px 16px;
+    border-radius: 24px;
+    background: var(--card-bg);
+    border: 1.5px solid var(--line);
+    color: var(--ink-muted);
+    white-space: nowrap;
+    transition: 0.2s all;
+  }
+  .cat-btn.active {
+    background: var(--espresso);
+    color: var(--gold);
+    border-color: var(--espresso);
+    box-shadow: 0 4px 12px rgba(43,24,16,0.25);
+  }
+
+  /* Product Grid Viewport */
+  .grid-container { padding: 18px 16px; min-height: 380px; }
+  .pgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .pcard {
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 6px 16px rgba(43,24,16,0.06);
+    position: relative;
+  }
+  .pcard.unavailable { opacity: 0.85; filter: grayscale(0.15); }
+  .pcard-img-box { position: relative; height: 110px; width: 100%; overflow: hidden; background: #eee; }
+  .pcard-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  
+  .avail-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 10px;
+    z-index: 2;
+  }
+  .avail-badge.in-stock { background: var(--green); color: #fff; }
+  .avail-badge.out-stock { background: var(--red); color: #fff; }
+
+  .pcard-body {
+    padding: 10px 12px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    justify-content: space-between;
+  }
+  .pcard-title {
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--ink);
+    min-height: 2.2em;
+    line-height: 1.3;
+  }
+
+  .weight-select {
+    width: 100%;
+    font-size: 0.72rem;
+    padding: 6px 8px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: #fff;
+    color: var(--ink);
+    font-family: 'Cairo', sans-serif;
+    font-weight: 700;
+    outline: none;
+  }
+  .qty-row { display: flex; align-items: center; justify-content: space-between; gap: 4px; }
+  .stepper {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow: hidden;
+    background: #fff;
+  }
+  .stepper button {
+    width: 26px;
+    height: 26px;
+    background: #F1E4CE;
+    color: var(--espresso);
+    font-weight: 900;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .stepper span {
+    width: 26px;
+    text-align: center;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 800;
+    font-size: 0.8rem;
+  }
+  .pcard-price {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 900;
+    color: var(--burgundy);
+    font-size: 0.88rem;
+    text-align: left;
+    white-space: nowrap;
+  }
+  .btn-add {
+    margin-top: 4px;
+    background: var(--espresso);
+    color: var(--gold);
+    font-family: 'Cairo', sans-serif;
+    font-weight: 800;
+    font-size: 0.75rem;
+    padding: 9px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+  .btn-add.disabled { background: #b8aba0; color: #f2ede7; pointer-events: none; }
+  .btn-add.added { background: var(--green); color: #fff; }
+
+  /* Sahrat Custom View */
+  .sahrat-card {
+    background: linear-gradient(145deg, var(--espresso-deep) 0%, #3a1e12 100%);
+    border-radius: 22px;
+    padding: 20px 18px;
+    color: var(--cream);
+    border: 1px solid rgba(201,162,39,0.35);
+  }
+  .sahrat-card h2 { color: var(--gold); font-size: 1.55rem; margin-bottom: 6px; }
+  .sahrat-card p.desc { font-size: 0.82rem; color: #E7D8C4; margin-bottom: 16px; line-height: 1.6; }
+  .form-field { margin-bottom: 12px; }
+  .form-field label {
+    display: block;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 5px;
+  }
+  .form-field input, .form-field select, .form-field textarea {
+    width: 100%;
+    background: rgba(250,243,231,0.08);
+    border: 1px solid rgba(201,162,39,0.4);
+    border-radius: 12px;
+    padding: 10px 12px;
+    color: #fff;
+    font-size: 0.88rem;
+    outline: none;
+  }
+  .form-field select option { background: #2A211C; color: #fff; }
+  .form-field textarea { resize: vertical; min-height: 75px; }
+
+  .btn-wa-action {
+    width: 100%;
+    background: linear-gradient(135deg, var(--green), var(--green-dark));
+    color: #fff;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 800;
+    font-size: 0.95rem;
+    padding: 14px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 8px 20px rgba(37,211,102,0.35);
+    margin-top: 8px;
+  }
+  .btn-wa-action svg { width: 20px; height: 20px; }
+
+  /* Floating Cart Bubble */
+  .cart-bubble {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 45;
+    background: var(--espresso-deep);
+    color: var(--gold);
+    font-family: 'Cairo', sans-serif;
+    font-weight: 800;
+    font-size: 0.85rem;
+    padding: 12px 22px;
+    border-radius: 30px;
+    display: none;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 1.5px solid rgba(201,162,39,0.5);
+    cursor: pointer;
+  }
+  .cart-bubble.show { display: flex; }
+  .cart-bubble .badge {
+    background: var(--gold);
+    color: var(--espresso-deep);
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 900;
+  }
+
+  /* Modals & Overlays */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(20,10,6,0.7);
+    z-index: 100;
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+  }
+  .overlay.show { display: flex; }
+  .modal {
+    width: 100%;
+    max-width: 480px;
+    background: var(--cream);
+    border-radius: 26px 26px 0 0;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease;
+    border-top: 2px solid var(--gold);
+  }
+  @keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  .modal-img { width: 100%; height: 180px; object-fit: cover; display: block; }
+  .modal-body { padding: 18px 20px 24px; }
+  .modal-close {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: rgba(20,10,6,0.6);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+  }
+
+  /* Invoice Modal styling */
+  .inv-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .inv-line-thumb { width: 44px; height: 44px; border-radius: 10px; object-fit: cover; }
+  .inv-line-info { flex: 1; min-width: 0; }
+  .inv-line-info h5 { font-family: 'Cairo', sans-serif; font-size: 0.85rem; font-weight: 800; color: var(--ink); }
+  .inv-line-info .variant { font-size: 0.72rem; color: var(--ink-muted); }
+  .inv-line-info .offer-flag { font-size: 0.65rem; color: var(--burgundy); font-weight: 800; }
+  .inv-line-total { font-family: 'Cairo', sans-serif; font-weight: 900; font-size: 0.85rem; color: var(--burgundy); min-width: 65px; text-align: left; }
+  .inv-rm { color: var(--red); font-size: 1.1rem; padding: 4px; }
+  .inv-subtotal-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 2px 4px;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 900;
+    color: var(--espresso-deep);
+    font-size: 1.1rem;
+    border-top: 2px dashed var(--line);
+    margin-top: 8px;
+  }
+  .delivery-toggle { display: flex; gap: 8px; margin: 14px 0 8px; }
+  .delivery-toggle button {
+    flex: 1;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1.5px solid var(--line);
+    font-family: 'Cairo', sans-serif;
+    font-weight: 800;
+    font-size: 0.8rem;
+    color: var(--ink-muted);
+    background: #fff;
+  }
+  .delivery-toggle button.active { background: var(--espresso); color: var(--gold); border-color: var(--espresso); }
+  .inv-input-box { margin: 10px 0; }
+  .inv-input-box label {
+    display: block;
+    font-family: 'Cairo', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--copper);
+    margin-bottom: 4px;
+  }
+  .inv-input-box input, .inv-input-box textarea {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 10px 12px;
+    font-size: 0.85rem;
+    background: #fff;
+    outline: none;
+  }
+  .btn-pay-action {
+    width: 100%;
+    background: linear-gradient(135deg, #1E3A5F, #0D2440);
+    color: #fff;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 800;
+    font-size: 0.9rem;
+    padding: 13px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  /* Payment Modal Box */
+  .pay-code-box {
+    background: #fff;
+    border: 1.5px dashed var(--copper);
+    border-radius: 16px;
+    padding: 16px;
+    text-align: center;
+    margin: 16px 0;
+  }
+  .pay-code {
+    font-family: 'Cairo', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 900;
+    color: var(--espresso);
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .pay-qr-img { width: 140px; height: 140px; margin: 10px auto; border-radius: 12px; display: block; }
+  .btn-copy {
+    background: var(--copper);
+    color: #fff;
+    font-family: 'Cairo', sans-serif;
+    font-weight: 700;
+    font-size: 0.75rem;
+    padding: 7px 16px;
+    border-radius: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Footer */
+  footer {
+    background: var(--espresso-deep);
+    color: var(--cream);
+    padding: 24px 18px 30px;
+    margin-top: 25px;
+    border-top: 1px solid rgba(201,162,39,0.3);
+  }
+  footer .flogo { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+  footer .flogo .name-ar { font-family: 'Aref Ruqaa', serif; font-size: 1.2rem; color: var(--gold); }
+  footer .contact-line { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; font-size: 0.8rem; color: #E7D8C4; }
+  footer .contact-line svg { width: 16px; height: 16px; color: var(--gold); flex-shrink: 0; }
+  footer .socials { display: flex; gap: 10px; margin-top: 14px; }
+  footer .socials a {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(250,243,231,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(201,162,39,0.3);
+  }
+  footer .socials svg { width: 18px; height: 18px; color: var(--gold); }
+
+  @media (min-width: 481px) {
+    body { padding: 24px 0; }
+    .app-shell { border-radius: 28px; min-height: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- Top Bar -->
+  <header class="topbar">
+    <div class="brandmark">
+      <svg viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="32" r="31" fill="#2B1810" stroke="#C9A227" stroke-width="1.8"/>
+        <path d="M20 30h20a2 2 0 012 2v3c0 6-4.5 11-11 11s-11-5-11-11v-3a2 2 0 012-2z" stroke="#D9A066" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+        <path d="M42 32h2.5a3.5 3.5 0 010 7H42" stroke="#D9A066" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+        <path d="M24 21c-1.5 2-1.5 3 0 5M29 21c-1.5 2-1.5 3 0 5M34 21c-1.5 2-1.5 3 0 5" stroke="#C9A227" stroke-width="1.8" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <div class="name-ar">محمصة النحاس</div>
+        <div class="name-sub">ROASTERY &amp; GIFTS</div>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <a href="ads.html" class="btn-topbar-ads">
+        📣 إعلانات الشركاء
+      </a>
+      <a href="tel:00963991457935" style="color:var(--cream); padding:6px;" aria-label="اتصال">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <!-- 3D Coverflow Hero Slider -->
+  <section class="hero-wrap">
+    <div class="hero-title">✨ عروض خاصة وحصرية ✨</div>
+    <div class="coverflow" id="coverflow">
+      <div class="cf-track" id="cfTrack"></div>
+    </div>
+    <div class="cf-dots" id="cfDots"></div>
+  </section>
+
+  <!-- Product Categories Filter Nav (No Scrolling/Jumping) -->
+  <nav class="catnav-wrap">
+    <div class="catnav" id="catnavBar">
+      <button class="cat-btn active" onclick="setProductCategory('coffee')">☕ القهوة والبن</button>
+      <button class="cat-btn" onclick="setProductCategory('nuts')">🥜 المكسرات</button>
+      <button class="cat-btn" onclick="setProductCategory('sweets')">🍫 السكاكر والشوكولا</button>
+      <button class="cat-btn" onclick="setProductCategory('gifts')">💐 باقات ورد وهدايا</button>
+      <button class="cat-btn" onclick="setProductCategory('drinks')">🥤 مشروبات باردة</button>
+      <button class="cat-btn" onclick="setProductCategory('icecream')">🍨 بوظة ومبروش</button>
+      <button class="cat-btn" onclick="setProductCategory('chips')">🍟 الشيبس</button>
+      <button class="cat-btn" onclick="setProductCategory('sahrat')">🎉 تجهيز السهرات</button>
+    </div>
+  </nav>
+
+  <!-- Dynamic Product Grid Area -->
+  <main class="grid-container" id="gridContainer">
+    <!-- Rendered dynamically -->
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="flogo"><span class="name-ar">محمصة النحاس</span></div>
+    <div class="contact-line">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <a href="https://maps.app.goo.gl/KJxXjAUhrG2TyKcy9" target="_blank">موقعنا على الخريطة (انقر للوصول)</a>
+    </div>
+    <div class="contact-line">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      <span dir="ltr">00963991457935</span>
+    </div>
+    <div class="socials">
+      <a href="https://maps.app.goo.gl/KJxXjAUhrG2TyKcy9" target="_blank" aria-label="خريطة"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></a>
+      <a href="https://wa.me/963991457935" target="_blank" aria-label="واتساب"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.3A8.8 8.8 0 0 0 12 4a8.9 8.9 0 0 0-7.7 13.4L3 21l3.7-1.2A8.9 8.9 0 0 0 12 21a8.9 8.9 0 0 0 5.6-15.7zM12 19.3a7.3 7.3 0 0 1-3.7-1l-.3-.2-2.7.9.9-2.6-.2-.3A7.4 7.4 0 1 1 19.4 12 7.3 7.3 0 0 1 12 19.3z"/></svg></a>
+    </div>
+  </footer>
+
+</div>
+
+<!-- Floating Cart Bubble (Only way to access invoice) -->
+<div class="cart-bubble" id="cartBubble" onclick="openInvoiceModal()">
+  <span>🧾 معاينة الفاتورة</span>
+  <span class="badge" id="cartBadgeCount">0</span>
+  <span id="cartBadgeTotal">0 ل.س</span>
+</div>
+
+<!-- Special Offer Details Modal -->
+<div class="overlay" id="offerModalOverlay">
+  <div class="modal">
+    <div style="position:relative;">
+      <button class="modal-close" onclick="closeModal('offerModalOverlay')">✕</button>
+      <img class="modal-img" id="offerModalImg" src="" alt="">
+    </div>
+    <div class="modal-body">
+      <span class="cf-badge" id="offerModalBadge"></span>
+      <h2 id="offerModalTitle" style="color:var(--espresso); margin-bottom:6px;"></h2>
+      <div style="display:flex; align-items:baseline; gap:10px; margin:8px 0 12px;">
+        <span id="offerModalPriceNew" style="font-family:'Cairo'; font-weight:900; font-size:1.3rem; color:var(--burgundy);"></span>
+        <span id="offerModalPriceOld" style="font-family:'Cairo'; font-size:0.9rem; color:var(--ink-muted); text-decoration:line-through;"></span>
+      </div>
+      <p id="offerModalDesc" style="font-size:0.85rem; color:var(--ink-muted); line-height:1.6; margin-bottom:16px;"></p>
+      <button class="btn-wa-action" style="background:var(--espresso); color:var(--gold);" onclick="addSelectedOfferToCart()">احصل عليه الآن (إضافة للطلب)</button>
+    </div>
+  </div>
+</div>
+
+<!-- Full Invoice Modal -->
+<div class="overlay" id="invoiceModalOverlay">
+  <div class="modal">
+    <div class="modal-body">
+      <button class="modal-close" style="position:static; float:left; background:none; color:var(--ink);" onclick="closeModal('invoiceModalOverlay')">✕</button>
+      <h2 style="color:var(--espresso); margin-bottom:12px;">فاتورة الطلب</h2>
+      
+      <div id="invLinesList"></div>
+      
+      <div class="inv-subtotal-box">
+        <span>المجموع الإجمالي:</span>
+        <span id="invTotalAmount">0 ل.س</span>
+      </div>
+
+      <div class="delivery-toggle">
+        <button type="button" id="btnDelivYes" class="active" onclick="setDeliveryMode(true)">🚚 توصيل للعنوان</button>
+        <button type="button" id="btnDelivNo" onclick="setDeliveryMode(false)">🏪 استلام من المحل</button>
+      </div>
+
+      <div class="inv-input-box">
+        <label>اسم الزبون الكريم <span style="color:var(--red);">*</span></label>
+        <input type="text" id="custName" placeholder="الاسم الثلاثي">
+      </div>
+
+      <div class="inv-input-box">
+        <label>رقم الهاتف أو الواتساب <span style="color:var(--red);">*</span></label>
+        <input type="tel" id="custPhone" placeholder="09xxxxxxxx" dir="ltr">
+      </div>
+
+      <div class="inv-input-box" id="addressFieldWrap">
+        <label>عنوان التوصيل بالتفصيل <span style="color:var(--red);">*</span></label>
+        <input type="text" id="custAddress" placeholder="المنطقة، الشارع، البناء، أقرب نقطة دالة">
+      </div>
+
+      <div class="inv-input-box">
+        <label>ملاحظات إضافية على الطلب</label>
+        <textarea id="custNotes" placeholder="درجة طحن القهوة، درجة التحميص، موعد الاستلام..."></textarea>
+      </div>
+
+      <button type="button" class="btn-wa-action" onclick="sendCartOrderToWhatsApp()">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.3A8.8 8.8 0 0 0 12 4a8.9 8.9 0 0 0-7.7 13.4L3 21l3.7-1.2A8.9 8.9 0 0 0 12 21a8.9 8.9 0 0 0 5.6-15.7zM12 19.3a7.3 7.3 0 0 1-3.7-1l-.3-.2-2.7.9.9-2.6-.2-.3A7.4 7.4 0 1 1 19.4 12 7.3 7.3 0 0 1 12 19.3z"/></svg>
+        إرسال الطلب عبر واتساب
+      </button>
+
+      <button type="button" class="btn-pay-action" onclick="openModal('payModalOverlay')">
+        💳 الدفع الإلكتروني (شام كاش)
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Sham Cash Payment Modal -->
+<div class="overlay" id="payModalOverlay">
+  <div class="modal">
+    <div class="modal-body">
+      <button class="modal-close" style="position:static; float:left; background:none; color:var(--ink);" onclick="closeModal('payModalOverlay')">✕</button>
+      <h2 style="color:var(--espresso); margin-bottom:6px;">الدفع عبر شام كاش</h2>
+      <p style="font-size:0.82rem; color:var(--ink-muted);">انسخ كود المحفظة أو امسح رمز QR وحوّل المبلغ المطلوب، ثم أكّد الدفع عبر واتساب.</p>
+      
+      <div class="pay-code-box">
+        <div class="pay-code">SHAM-991457935</div>
+        <button type="button" class="btn-copy" onclick="copyShamCode()">📋 نسخ الكود</button>
+        <img class="pay-qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=SHAM-991457935" alt="QR شام كاش">
+      </div>
+      
+      <button class="btn-wa-action" onclick="confirmPaymentWhatsApp()">
+        تأكيد إشعار الدفع عبر واتساب
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+const ROASTERY_WA = "963991457935";
+
+// Mock Data Defaults
+const DEFAULT_OFFERS = [
+  {
+    id: "off-1",
+    title: "بكج السهرة الملوكي الذهبي",
+    badge: "توفير 25%",
+    oldPrice: 120000,
+    newPrice: 90000,
+    img: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&q=80",
+    desc: "نصف كيلو بن فاخر محمص ومطحون طازج + نصف كيلو مكسرات اكسترا مشكلة مدخنة + تشكيلة شوكولا بلجيكية فاخرة."
+  },
+  {
+    id: "off-2",
+    title: "عرض عشاق القهوة المختصة",
+    badge: "الأكثر طلباً",
+    oldPrice: 85000,
+    newPrice: 68000,
+    img: "https://images.unsplash.com/photo-1509785307050-d4066910ec1e?w=600&q=80",
+    desc: "كيلو بن محمص بالدرجة التي تختارها (عادي / وسط / غامق مع هيل إكسترا) مع علبة سكاكر فاخرة هدية مجانية."
+  },
+  {
+    id: "off-3",
+    title: "بوكس ورد وشوكولا للهدايا",
+    badge: "عرض التخرج والأعياد",
+    oldPrice: 150000,
+    newPrice: 125000,
+    img: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=600&q=80",
+    desc: "تنسيقة باقة ورد جوري طبيعي مع بوكس شوكولا مشكل ومغلف بأناقة متناهية لجميع مناسباتكم السعيدة."
+  }
+];
+
+const DEFAULT_PRODUCTS = [
+  // Coffee
+  { id: "c1", cat: "coffee", name: "بن عادي محمص (طحن حسب الطلب)", basePrice: 65000, unitType: "weight", isAvailable: true, img: "https://images.unsplash.com/photo-1587734195503-904fca47e0e9?w=500&q=80" },
+  { id: "c2", cat: "coffee", name: "بن فاخر محوج هيل وسط", basePrice: 85000, unitType: "weight", isAvailable: true, img: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=500&q=80" },
+  { id: "c3", cat: "coffee", name: "بن إكسترا ذهبي (خلطة النحاس)", basePrice: 110000, unitType: "weight", isAvailable: true, img: "https://images.unsplash.com/photo-1511920170033-f8396924c348?w=500&q=80" },
+  { id: "c4", cat: "coffee", name: "بن ديلوف كولومبي مروق", basePrice: 125000, unitType: "weight", isAvailable: false, img: "https://images.unsplash.com/photo-1509785307050-d4066910ec1e?w=500&q=80" },
+
+  // Nuts
+  { id: "n1", cat: "nuts", name: "مكسرات مشكلة إكسترا مدخنة", basePrice: 95000, unitType: "weight", isAvailable: true, img: "https://images.unsplash.com/photo-1536591375315-1b838421a719?w=500&q=80" },
+  { id: "n2", cat: "nuts", name: "كاجو محمص ومملح جامبو", basePrice: 140000, unitType: "weight", isAvailable: true, img: "https://images.unsplash.com/photo-1569300305886-f131a9807530?w=500&q=80" },
+  { id: "n3", cat: "nuts", name: "فستق حلبي محمص نخب أول", basePrice: 160000, unitType: "weight", isAvailable: true, img: "https://images.unsplash.com/photo-1528751014936-863e6e7a319c?w=500&q=80" },
+  { id: "n4", cat: "nuts", name: "بزر أبيض قرع فاخر", basePrice: 45000, unitType: "weight", isAvailable: true, img: "https://images.unsplash.com/photo-1509914398867-279c6d328eb9?w=500&q=80" },
+
+  // Sweets
+  { id: "s1", cat: "sweets", name: "شوكولا بلجيكية بحشوة الفستق (علبة)", basePrice: 48000, unitType: "unit", isAvailable: true, img: "https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=500&q=80" },
+  { id: "s2", cat: "sweets", name: "سكاكر وتوفي مشكل ضيافة (كغ)", basePrice: 50000, unitType: "weight", isAvailable: true, img: "https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=500&q=80" },
+  { id: "s3", cat: "sweets", name: "راحة حلقوم بالمكسرات (علبة)", basePrice: 35000, unitType: "unit", isAvailable: true, img: "https://images.unsplash.com/photo-1579372786545-d24232daf58c?w=500&q=80" },
+
+  // Gifts
+  { id: "g1", cat: "gifts", name: "باقة ورد جوري طبيعي أنيقة", basePrice: 75000, unitType: "unit", isAvailable: true, img: "https://images.unsplash.com/photo-1561181286-d3fee7d55364?w=500&q=80" },
+  { id: "g2", cat: "gifts", name: "ستاند باقة شوكولا وورد للمناسبات", basePrice: 130000, unitType: "unit", isAvailable: true, img: "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=500&q=80" },
+  { id: "g3", cat: "gifts", name: "بوكس هدايا فاخر مخملي منوع", basePrice: 95000, unitType: "unit", isAvailable: true, img: "https://images.unsplash.com/photo-1513885535751-8b9238bd345a?w=500&q=80" },
+
+  // Drinks
+  { id: "d1", cat: "drinks", name: "قهوة مثلجة آيس سبانش لاتيه", basePrice: 18000, unitType: "unit", isAvailable: true, img: "https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=500&q=80" },
+  { id: "d2", cat: "drinks", name: "موهيتو توت بري ونعناع بارد", basePrice: 15000, unitType: "unit", isAvailable: true, img: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=500&q=80" },
+
+  // Ice Cream
+  { id: "i1", cat: "icecream", name: "كاسة بوظة عربي دق بالمستكة والفستق", basePrice: 22000, unitType: "unit", isAvailable: true, img: "https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=500&q=80" },
+  { id: "i2", cat: "icecream", name: "عصير سلم مثلج مبروش (سلاش فواكه)", basePrice: 14000, unitType: "unit", isAvailable: true, img: "https://images.unsplash.com/photo-1505252585461-04db1eb84625?w=500&q=80" },
+
+  // Chips
+  { id: "ch1", cat: "chips", name: "شيبس بطاطا مقرمش نكهة جبنة فرنسية", basePrice: 8000, unitType: "unit", isAvailable: true, img: "https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=500&q=80" },
+  { id: "ch2", cat: "chips", name: "شيبس ذرة مكسيكي حار ونار", basePrice: 8000, unitType: "unit", isAvailable: true, img: "https://images.unsplash.com/photo-1527842891421-42eec6e703ea?w=500&q=80" }
+];
+
+let offersData = JSON.parse(localStorage.getItem('al_nahas_offers')) || DEFAULT_OFFERS;
+let productsData = JSON.parse(localStorage.getItem('al_nahas_products')) || DEFAULT_PRODUCTS;
+let cart = [];
+let isDelivery = true;
+let currentOfferIdx = 0;
+let currentSelectedOffer = null;
+
+const WEIGHT_FACTORS = {
+  "1000": { label: "1 كغ", mult: 1.0 },
+  "500":  { label: "نصف كغ (500غ)", mult: 0.5 },
+  "250":  { label: "ربع كغ (250غ)", mult: 0.25 },
+  "200":  { label: "200 غرام", mult: 0.2 },
+  "100":  { label: "100 غرام", mult: 0.1 }
+};
+
+// ----------------- 3D Coverflow Slider Logic -----------------
+function initCoverflow() {
+  const track = document.getElementById('cfTrack');
+  const dotsBox = document.getElementById('cfDots');
+  track.innerHTML = '';
+  dotsBox.innerHTML = '';
+
+  offersData.forEach((off, idx) => {
+    const slide = document.createElement('div');
+    slide.className = 'cf-slide';
+    slide.onclick = () => {
+      if (currentOfferIdx === idx) {
+        openOfferModal(off.id);
+      } else {
+        currentOfferIdx = idx;
+        updateCoverflow();
+      }
+    };
+    slide.innerHTML = `
+      <img src="${off.img}" alt="${off.title}">
+      <div class="cf-info">
+        <span class="cf-badge">${off.badge}</span>
+        <h3>${off.title}</h3>
+        <div class="cf-prices">
+          <span class="cf-price-new">${off.newPrice.toLocaleString()} ل.س</span>
+          <span class="cf-price-old">${off.oldPrice.toLocaleString()} ل.س</span>
+        </div>
+        <div class="cf-tap">👆 انقر لمشاهدة التفاصيل</div>
+      </div>
+    `;
+    track.appendChild(slide);
+
+    const dot = document.createElement('div');
+    dot.className = `cf-dot ${idx === 0 ? 'active' : ''}`;
+    dot.onclick = () => { currentOfferIdx = idx; updateCoverflow(); };
+    dotsBox.appendChild(dot);
+  });
+
+  updateCoverflow();
+
+  // Auto rotate every 4 seconds
+  setInterval(() => {
+    if (offersData.length > 1) {
+      currentOfferIdx = (currentOfferIdx + 1) % offersData.length;
+      updateCoverflow();
+    }
+  }, 4000);
+}
+
+function updateCoverflow() {
+  const slides = document.querySelectorAll('.cf-slide');
+  const dots = document.querySelectorAll('.cf-dot');
+
+  slides.forEach((slide, idx) => {
+    const offset = idx - currentOfferIdx;
+    if (offset === 0) {
+      slide.style.transform = `translateX(0px) translateZ(0px) rotateY(0deg) scale(1)`;
+      slide.style.opacity = '1';
+      slide.style.zIndex = '10';
+      slide.style.filter = 'none';
+    } else if (offset === -1 || (offset > 0 && currentOfferIdx === 0 && idx === slides.length - 1)) {
+      slide.style.transform = `translateX(-60%) translateZ(-160px) rotateY(38deg) scale(0.85)`;
+      slide.style.opacity = '0.7';
+      slide.style.zIndex = '5';
+      slide.style.filter = 'brightness(0.6)';
+    } else if (offset === 1 || (offset < 0 && currentOfferIdx === slides.length - 1 && idx === 0)) {
+      slide.style.transform = `translateX(60%) translateZ(-160px) rotateY(-38deg) scale(0.85)`;
+      slide.style.opacity = '0.7';
+      slide.style.zIndex = '5';
+      slide.style.filter = 'brightness(0.6)';
+    } else {
+      slide.style.transform = `translateX(${offset * 90}%) translateZ(-300px) scale(0.7)`;
+      slide.style.opacity = '0';
+      slide.style.zIndex = '1';
+    }
+  });
+
+  dots.forEach((dot, idx) => {
+    dot.classList.toggle('active', idx === currentOfferIdx);
+  });
+}
+
+// ----------------- Category Filter Switcher -----------------
+function setProductCategory(catKey) {
+  const navBtns = document.querySelectorAll('.cat-btn');
+  navBtns.forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('onclick').includes(`'${catKey}'`));
+  });
+
+  const container = document.getElementById('gridContainer');
+  container.innerHTML = '';
+
+  if (catKey === 'sahrat') {
+    renderSahratSection(container);
+  } else {
+    renderProductsGrid(catKey, container);
+  }
+}
+
+function renderProductsGrid(catKey, container) {
+  const filtered = productsData.filter(p => p.cat === catKey);
+  const grid = document.createElement('div');
+  grid.className = 'pgrid';
+
+  filtered.forEach(p => {
+    const card = document.createElement('div');
+    card.className = `pcard ${p.isAvailable ? '' : 'unavailable'}`;
+    
+    let unitHtml = '';
+    if (p.unitType === 'weight') {
+      unitHtml = `
+        <select class="weight-select" id="weight_${p.id}" onchange="updateCardPrice('${p.id}')" ${!p.isAvailable ? 'disabled' : ''}>
+          <option value="1000">1 كغ</option>
+          <option value="500">نصف كغ (500غ)</option>
+          <option value="250">ربع كغ (250غ)</option>
+          <option value="200">200 غرام</option>
+          <option value="100">100 غرام</option>
+        </select>
+      `;
+    } else {
+      unitHtml = `<div style="font-size:0.75rem; color:var(--ink-muted); font-weight:700; font-family:'Cairo';">الطلب بالقطعة / العلبة</div>`;
+    }
+
+    card.innerHTML = `
+      <div class="pcard-img-box">
+        <span class="avail-badge ${p.isAvailable ? 'in-stock' : 'out-stock'}">
+          ${p.isAvailable ? 'متوفر' : 'غير متوفر'}
+        </span>
+        <img class="pcard-img" src="${p.img}" alt="${p.name}">
+      </div>
+      <div class="pcard-body">
+        <h4 class="pcard-title">${p.name}</h4>
+        ${unitHtml}
+        <div class="qty-row">
+          <div class="stepper">
+            <button type="button" onclick="adjustProductQty('${p.id}', -1)">−</button>
+            <span id="qty_${p.id}">1</span>
+            <button type="button" onclick="adjustProductQty('${p.id}', 1)">+</button>
+          </div>
+          <span class="pcard-price" id="price_display_${p.id}">${p.basePrice.toLocaleString()} ل.س</span>
+        </div>
+        <button type="button" id="btn_add_${p.id}" class="btn-add ${p.isAvailable ? '' : 'disabled'}" onclick="addToCartProduct('${p.id}')">
+          ${p.isAvailable ? '🛒 أضف للطلب' : 'نفدت الكمية'}
+        </button>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  container.appendChild(grid);
+}
+
+function adjustProductQty(pid, delta) {
+  const span = document.getElementById(`qty_${pid}`);
+  if (!span) return;
+  let q = parseInt(span.innerText) || 1;
+  q = Math.max(1, q + delta);
+  span.innerText = q;
+  updateCardPrice(pid);
+}
+
+function updateCardPrice(pid) {
+  const p = productsData.find(item => item.id === pid);
+  if (!p) return;
+  const q = parseInt(document.getElementById(`qty_${pid}`).innerText) || 1;
+  let mult = 1.0;
+  if (p.unitType === 'weight') {
+    const sel = document.getElementById(`weight_${pid}`);
+    mult = WEIGHT_FACTORS[sel ? sel.value : "1000"].mult;
+  }
+  const tot = p.basePrice * mult * q;
+  document.getElementById(`price_display_${pid}`).innerText = `${tot.toLocaleString()} ل.س`;
+}
+
+function addToCartProduct(pid) {
+  const p = productsData.find(item => item.id === pid);
+  if (!p || !p.isAvailable) return;
+
+  const q = parseInt(document.getElementById(`qty_${pid}`).innerText) || 1;
+  let variant = "قطعة / علبة";
+  let mult = 1.0;
+
+  if (p.unitType === 'weight') {
+    const sel = document.getElementById(`weight_${pid}`);
+    const wVal = sel ? sel.value : "1000";
+    variant = WEIGHT_FACTORS[wVal].label;
+    mult = WEIGHT_FACTORS[wVal].mult;
+  }
+
+  const calculatedUnitPrice = p.basePrice * mult;
+  const existing = cart.find(item => item.productId === pid && item.variant === variant);
+
+  if (existing) {
+    existing.qty += q;
+  } else {
+    cart.push({
+      id: 'cart-' + Date.now(),
+      productId: p.id,
+      name: p.name,
+      variant: variant,
+      unitPrice: calculatedUnitPrice,
+      qty: q,
+      img: p.img,
+      isOffer: false
+    });
+  }
+
+  updateCartBubble();
+
+  const btn = document.getElementById(`btn_add_${pid}`);
+  if (btn) {
+    btn.classList.add('added');
+    btn.innerText = '✓ تمت الإضافة';
+    setTimeout(() => {
+      btn.classList.remove('added');
+      btn.innerText = '🛒 أضف للطلب';
+    }, 1000);
+  }
+}
+
+// ----------------- Sahrat View -----------------
+function renderSahratSection(container) {
+  const card = document.createElement('div');
+  card.className = 'sahrat-card';
+  card.innerHTML = `
+    <h2>تجهيز السهرات والمناسبات</h2>
+    <p class="desc">نقدم لكم تشكيلات مميزة من المكسرات والضيافة والحلويات المجهزة بدقة لتلائم نوع المناسبة وميزانيتكم.</p>
+    
+    <div class="form-field">
+      <label>نوع السهرة / المناسبة</label>
+      <select id="sahratOccasion">
+        <option>سهرة خاصة / عائلية</option>
+        <option>حفلة تخرج ومباركة</option>
+        <option>عيد ميلاد واحتفال</option>
+        <option>خطوبة وضيافة عرسان</option>
+        <option>مناسبة عمل واجتماع راقي</option>
+      </select>
+    </div>
+
+    <div class="form-field">
+      <label>عدد الأشخاص التقريبي</label>
+      <input type="number" id="sahratGuests" placeholder="مثال: 10" min="1">
+    </div>
+
+    <div class="form-field">
+      <label>الميزانية التقريبية (ل.س)</label>
+      <input type="text" id="sahratBudget" placeholder="مثال: 150,000 - 250,000">
+    </div>
+
+    <div class="form-field">
+      <label>تفاصيل وطلبات إضافية خاصة</label>
+      <textarea id="sahratDetails" placeholder="اكتب الأصناف المفضلة (نوع البن، مكسرات محددة، باقة معينة)..."></textarea>
+    </div>
+
+    <button type="button" class="btn-wa-action" onclick="sendSahratWhatsApp()">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.3A8.8 8.8 0 0 0 12 4a8.9 8.9 0 0 0-7.7 13.4L3 21l3.7-1.2A8.9 8.9 0 0 0 12 21a8.9 8.9 0 0 0 5.6-15.7zM12 19.3a7.3 7.3 0 0 1-3.7-1l-.3-.2-2.7.9.9-2.6-.2-.3A7.4 7.4 0 1 1 19.4 12 7.3 7.3 0 0 1 12 19.3z"/></svg>
+      إرسال طلب السهرة عبر واتساب
+    </button>
+  `;
+  container.appendChild(card);
+}
+
+function sendSahratWhatsApp() {
+  const occasion = document.getElementById('sahratOccasion').value;
+  const guests = document.getElementById('sahratGuests').value || 'غير محدد';
+  const budget = document.getElementById('sahratBudget').value || 'غير محدد';
+  const details = document.getElementById('sahratDetails').value || 'لا توجد ملاحظات إضافية';
+
+  const text = `🎉 *طلب تجهيز سهرة / مناسبة خاصة - محمصة النحاس*\n\n` +
+               `🔹 *نوع المناسبة:* ${occasion}\n` +
+               `🔹 *عدد الأشخاص:* ${guests}\n` +
+               `🔹 *الميزانية التقريبية:* ${budget} ل.س\n` +
+               `📝 *التفاصيل والطلبات:* ${details}\n\n` +
+               `يرجى التواصل لتأكيد التجهيز والتوصيل.`;
+
+  window.open(`https://wa.me/${ROASTERY_WA}?text=${encodeURIComponent(text)}`, '_blank');
+}
+
+// ----------------- Invoice & Cart Modal Logic -----------------
+function openInvoiceModal() {
+  const list = document.getElementById('invLinesList');
+  list.innerHTML = '';
+
+  let subtotal = 0;
+  cart.forEach(item => {
+    const itemTot = item.unitPrice * item.qty;
+    subtotal += itemTot;
+
+    const row = document.createElement('div');
+    row.className = 'inv-line';
+    row.innerHTML = `
+      <img class="inv-line-thumb" src="${item.img}" alt="${item.name}">
+      <div class="inv-line-info">
+        <h5>${item.name}</h5>
+        <div class="variant">${item.variant} × ${item.qty}</div>
+        ${item.isOffer ? '<span class="offer-flag">✨ عرض خاص</span>' : ''}
+      </div>
+      <div class="inv-line-total">${itemTot.toLocaleString()} ل.س</div>
+      <button type="button" class="inv-rm" onclick="removeCartItem('${item.id}')">✕</button>
+    `;
+    list.appendChild(row);
+  });
+
+  document.getElementById('invTotalAmount').innerText = `${subtotal.toLocaleString()} ل.س`;
+  openModal('invoiceModalOverlay');
+}
+
+function removeCartItem(id) {
+  cart = cart.filter(item => item.id !== id);
+  updateCartBubble();
+  if (cart.length === 0) {
+    closeModal('invoiceModalOverlay');
+  } else {
+    openInvoiceModal();
+  }
+}
+
+function updateCartBubble() {
+  const bubble = document.getElementById('cartBubble');
+  const countBadge = document.getElementById('cartBadgeCount');
+  const totalBadge = document.getElementById('cartBadgeTotal');
+
+  if (cart.length === 0) {
+    bubble.classList.remove('show');
+    return;
+  }
+
+  let totalItems = 0;
+  let totalPrice = 0;
+  cart.forEach(item => {
+    totalItems += item.qty;
+    totalPrice += item.unitPrice * item.qty;
+  });
+
+  countBadge.innerText = totalItems;
+  totalBadge.innerText = `${totalPrice.toLocaleString()} ل.س`;
+  bubble.classList.add('show');
+}
+
+function setDeliveryMode(isDeliv) {
+  isDelivery = isDeliv;
+  document.getElementById('btnDelivYes').classList.toggle('active', isDeliv);
+  document.getElementById('btnDelivNo').classList.toggle('active', !isDeliv);
+  document.getElementById('addressFieldWrap').style.display = isDeliv ? 'block' : 'none';
+}
+
+function sendCartOrderToWhatsApp() {
+  if (cart.length === 0) return;
+
+  const name = document.getElementById('custName').value.trim();
+  const phone = document.getElementById('custPhone').value.trim();
+  const address = isDelivery ? document.getElementById('custAddress').value.trim() : 'استلام مباشر من المحل';
+  const notes = document.getElementById('custNotes').value.trim() || 'لا توجد ملاحظات';
+
+  if (!name || !phone || (isDelivery && !address)) {
+    alert('يرجى تعبئة الحقول المطلوبة (الاسم، الهاتف، والعنوان للتوصيل).');
+    return;
+  }
+
+  let itemsText = '';
+  let grandTotal = 0;
+  cart.forEach((item, idx) => {
+    const lineTot = item.unitPrice * item.qty;
+    grandTotal += lineTot;
+    itemsText += `${idx + 1}. *${item.name}* (${item.variant}) × ${item.qty} = ${lineTot.toLocaleString()} ل.س\n`;
+  });
+
+  const text = `🧾 *طلب جديد - محمصة النحاس*\n` +
+               `----------------------------------\n` +
+               `👤 *الاسم:* ${name}\n` +
+               `📞 *الهاتف:* ${phone}\n` +
+               `🚚 *نوع الاستلام:* ${isDelivery ? 'توصيل للعنوان' : 'استلام من المحل'}\n` +
+               (isDelivery ? `📍 *العنوان:* ${address}\n` : '') +
+               `📝 *الملاحظات:* ${notes}\n` +
+               `----------------------------------\n` +
+               `📦 *تفاصيل المواد:*\n${itemsText}` +
+               `----------------------------------\n` +
+               `💰 *المجموع الإجمالي:* ${grandTotal.toLocaleString()} ل.س\n\n` +
+               `يرجى تأكيد استلام وتجهيز الطلب.`;
+
+  window.open(`https://wa.me/${ROASTERY_WA}?text=${encodeURIComponent(text)}`, '_blank');
+}
+
+// ----------------- Offer Modal -----------------
+function openOfferModal(offId) {
+  const off = offersData.find(o => o.id === offId);
+  if (!off) return;
+  currentSelectedOffer = off;
+
+  document.getElementById('offerModalImg').src = off.img;
+  document.getElementById('offerModalBadge').innerText = off.badge;
+  document.getElementById('offerModalTitle').innerText = off.title;
+  document.getElementById('offerModalPriceNew').innerText = `${off.newPrice.toLocaleString()} ل.س`;
+  document.getElementById('offerModalPriceOld').innerText = `${off.oldPrice.toLocaleString()} ل.س`;
+  document.getElementById('offerModalDesc').innerText = off.desc;
+
+  openModal('offerModalOverlay');
+}
+
+function addSelectedOfferToCart() {
+  if (!currentSelectedOffer) return;
+  cart.push({
+    id: 'cart-offer-' + Date.now(),
+    productId: currentSelectedOffer.id,
+    name: currentSelectedOffer.title,
+    variant: currentSelectedOffer.badge,
+    unitPrice: currentSelectedOffer.newPrice,
+    qty: 1,
+    img: currentSelectedOffer.img,
+    isOffer: true
+  });
+
+  updateCartBubble();
+  closeModal('offerModalOverlay');
+  openInvoiceModal();
+}
+
+// ----------------- Helpers -----------------
+function openModal(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.add('show');
+}
+function closeModal(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.remove('show');
+}
+function copyShamCode() {
+  navigator.clipboard.writeText('SHAM-991457935').then(() => alert('تم نسخ كود محفظة شام كاش'));
+}
+function confirmPaymentWhatsApp() {
+  const text = `💳 *إشعار تحويل ودفع إلكتروني (شام كاش)*\n\n` +
+               `لقد قمت بتحويل قيمة الفاتورة عبر محفظة شام كاش إلى الكود: *SHAM-991457935*.\n` +
+               `يرجى مراجعة الإشعار وتأكيد الطلب.`;
+  window.open(`https://wa.me/${ROASTERY_WA}?text=${encodeURIComponent(text)}`, '_blank');
+}
+
+// Start
+window.addEventListener('DOMContentLoaded', () => {
+  initCoverflow();
+  setProductCategory('coffee');
+});
+</script>
+
+</body>
+</html>
