@@ -2,220 +2,331 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>لوحة إدارة المتجر - النحاس</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>إدارة التطبيق | محمصة النحاس</title>
+
+  <!-- إعدادات تطبيق الويب PWA وأيقونة الإدارة -->
+  <link rel="manifest" href="manifest-admin.json">
+  <link rel="apple-touch-icon" href="https://res.cloudinary.com/dvzg70krq/image/upload/v1787113381/file_0000000043b081f4b8be26c2a5eab862_hzdker.png">
+  <meta name="theme-color" content="#121212">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- الخطوط الرسمية -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --primary: #c9933f;
+      --primary-hover: #b07e32;
       --bg: #121212;
-      --card: #1e1e1e;
-      --text: #eee;
+      --card-bg: #1e1e1e;
+      --input-bg: #282828;
+      --text: #f0f0f0;
+      --muted: #888;
       --border: #333;
       --danger: #ff4d4d;
+      --success: #4CAF50;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
-    body { background: var(--bg); color: var(--text); padding: 12px; display: flex; justify-content: center; min-height: 100vh; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', system-ui, sans-serif; -webkit-tap-highlight-color: transparent; }
+    body { background-color: var(--bg); color: var(--text); padding: 12px; display: flex; justify-content: center; min-height: 100vh; }
     .container { width: 100%; max-width: 500px; }
 
+    /* شاشة القفل */
     #lockScreen {
       position: fixed; inset: 0; background: #121212; z-index: 9999;
       display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px;
     }
-    .lock-box {
-      background: var(--card); border: 1px solid var(--border); border-radius: 16px;
-      padding: 24px; width: 100%; max-width: 360px; text-align: center;
+    .lock-card {
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px;
+      padding: 26px 20px; width: 100%; max-width: 340px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.6);
     }
-    .lock-icon { font-size: 2.5rem; margin-bottom: 12px; }
-    .pin-input {
-      width: 100%; padding: 14px; text-align: center; font-size: 1.4rem; letter-spacing: 6px;
-      background: #2a2a2a; border: 1px solid var(--border); border-radius: 8px; color: #fff;
+    .lock-logo {
+      width: 55px; height: 55px; border-radius: 12px; border: 1px solid var(--primary);
+      margin-bottom: 12px; object-fit: cover;
+    }
+    .pin-box {
+      width: 100%; padding: 14px; text-align: center; font-size: 1.6rem; letter-spacing: 8px;
+      background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px; color: #fff;
       outline: none; margin: 15px 0;
     }
 
+    /* الشريط العلوي */
     .header-bar {
       display: flex; justify-content: space-between; align-items: center;
       margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--border);
     }
+    .header-title {
+      display: flex; align-items: center; gap: 8px; font-family: 'Cairo', sans-serif;
+      font-weight: 800; color: var(--primary); font-size: 1.1rem;
+    }
+    .header-logo {
+      width: 32px; height: 32px; border-radius: 6px; border: 1px solid var(--primary);
+    }
     .btn-logout {
       background: transparent; border: 1px solid var(--danger); color: var(--danger);
-      padding: 6px 12px; border-radius: 6px; font-size: 0.85rem; cursor: pointer;
+      padding: 6px 12px; border-radius: 6px; font-size: 0.82rem; font-weight: bold; cursor: pointer;
     }
 
+    /* التبويبات الرئيسية */
     .tabs { display: flex; gap: 8px; margin-bottom: 15px; }
     .tab-btn {
-      flex: 1; padding: 12px; background: var(--card); border: 1px solid var(--border);
-      color: #aaa; font-weight: bold; border-radius: 8px; cursor: pointer;
+      flex: 1; padding: 12px; background: var(--card-bg); border: 1px solid var(--border);
+      color: var(--muted); font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 0.9rem;
+      border-radius: 8px; cursor: pointer; transition: 0.2s;
     }
     .tab-btn.active { background: var(--primary); color: #000; border-color: var(--primary); }
 
-    .card { background: var(--card); border-radius: 12px; padding: 16px; border: 1px solid var(--border); }
-    .sub-mode { display: flex; gap: 10px; margin-bottom: 15px; background: #2a2a2a; padding: 4px; border-radius: 8px; }
-    .sub-mode button { flex: 1; padding: 8px; border: none; background: transparent; color: #bbb; border-radius: 6px; cursor: pointer; }
-    .sub-mode button.active { background: #3a3a3a; color: #fff; font-weight: bold; }
+    .card { background: var(--card-bg); border-radius: 12px; padding: 16px; border: 1px solid var(--border); }
+    .sub-mode { display: flex; gap: 8px; margin-bottom: 15px; background: #252525; padding: 4px; border-radius: 8px; }
+    .sub-mode button {
+      flex: 1; padding: 8px; border: none; background: transparent; color: #aaa;
+      border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 700;
+    }
+    .sub-mode button.active { background: #383838; color: #fff; font-weight: bold; }
 
     .form-group { margin-bottom: 12px; }
-    label { display: block; font-size: 0.85rem; color: #aaa; margin-bottom: 4px; }
+    label { display: block; font-size: 0.82rem; color: #bbb; margin-bottom: 5px; font-weight: 600; }
     input, select, textarea {
-      width: 100%; padding: 10px; background: #2a2a2a; border: 1px solid var(--border);
-      border-radius: 6px; color: #fff; font-size: 0.95rem; outline: none;
+      width: 100%; padding: 10px 12px; background: var(--input-bg); border: 1px solid var(--border);
+      border-radius: 8px; color: #fff; font-size: 0.95rem; outline: none;
     }
+    input:focus, select:focus, textarea:focus { border-color: var(--primary); }
+
     .upload-box {
-      border: 1px dashed var(--primary); padding: 10px; text-align: center;
-      border-radius: 6px; cursor: pointer; color: var(--primary); font-size: 0.9rem;
+      border: 1px dashed var(--primary); padding: 12px; text-align: center;
+      border-radius: 8px; cursor: pointer; color: var(--primary); font-size: 0.88rem; display: block; font-weight: bold;
     }
-    .img-preview { width: 100%; max-height: 140px; object-fit: cover; border-radius: 6px; margin-top: 8px; display: none; }
+    .img-preview { width: 100%; max-height: 150px; object-fit: cover; border-radius: 8px; margin-top: 8px; display: none; }
 
     .submit-btn {
-      width: 100%; padding: 12px; background: var(--primary); color: #000; border: none;
-      border-radius: 6px; font-weight: bold; font-size: 1rem; cursor: pointer; margin-top: 10px;
+      width: 100%; padding: 13px; background: var(--primary); color: #000; border: none;
+      border-radius: 8px; font-family: 'Cairo', sans-serif; font-weight: 800; font-size: 1rem;
+      cursor: pointer; margin-top: 10px; transition: 0.2s;
     }
-    .submit-btn:disabled { opacity: 0.5; }
-    .status { text-align: center; margin-top: 10px; font-size: 0.85rem; }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .status { text-align: center; margin-top: 10px; font-size: 0.88rem; font-weight: bold; }
     .hidden { display: none !important; }
   </style>
 </head>
 <body>
 
-<!-- شاشة القفل -->
+<!-- 1. شاشة القفل برمز PIN -->
 <div id="lockScreen">
-  <div class="lock-box">
-    <div class="lock-icon">🔒</div>
-    <h3 style="color: var(--primary); margin-bottom: 8px;">لوحة إدارة المتجر</h3>
-    <p style="font-size: 0.85rem; color: #888;">أدخل رمز PIN للمتابعة</p>
+  <div class="lock-card">
+    <img class="lock-logo" src="https://res.cloudinary.com/dvzg70krq/image/upload/v1787113381/file_0000000043b081f4b8be26c2a5eab862_hzdker.png" alt="شعار الإدارة">
+    <h3 style="font-family:'Cairo'; font-weight:800; color: var(--primary); margin-bottom: 4px;">إدارة تطبيق النحاس</h3>
+    <p style="font-size: 0.82rem; color: var(--muted);">أدخل رمز PIN لتسجيل الدخول</p>
     <form id="pinForm" onsubmit="handleLogin(event)">
-      <input type="password" id="pinInput" class="pin-input" placeholder="••••" maxlength="8" inputmode="numeric" required autofocus>
+      <input type="password" id="pinInput" class="pin-box" placeholder="••••" maxlength="8" inputmode="numeric" required autofocus>
       <button type="submit" id="loginBtn" class="submit-btn">تسجيل الدخول</button>
     </form>
-    <div id="pinError" style="color: var(--danger); font-size: 0.85rem; margin-top: 8px;"></div>
+    <div id="pinError" style="color: var(--danger); font-size: 0.85rem; margin-top: 10px;"></div>
   </div>
 </div>
 
-<!-- محتوى لوحة التحكم -->
+<!-- 2. محتوى لوحة التحكم -->
 <div class="container" id="adminContent">
   <div class="header-bar">
-    <h3 style="color: var(--primary);">⚙️ لوحة الإدارة</h3>
-    <button class="btn-logout" onclick="logout()">تسجيل الخروج 🚪</button>
+    <div class="header-title">
+      <img class="header-logo" src="https://res.cloudinary.com/dvzg70krq/image/upload/v1787113381/file_0000000043b081f4b8be26c2a5eab862_hzdker.png" alt="أيقونة">
+      <span>إدارة متجر النحاس</span>
+    </div>
+    <button class="btn-logout" onclick="logout()">خروج 🚪</button>
   </div>
 
   <div class="tabs">
-    <button class="tab-btn active" onclick="switchMainTab('products')">📦 المنتجات</button>
+    <button class="tab-btn active" onclick="switchMainTab('products')">📦 إدارة المنتجات</button>
     <button class="tab-btn" onclick="switchMainTab('offers')">🔥 عروض السلايدر</button>
   </div>
 
-  <!-- 1. قسم إدارة المنتجات -->
+  <!-- قسم إدارة المنتجات -->
   <div id="productsSection" class="card">
     <div class="sub-mode">
       <button id="modeAdd" class="active" onclick="setProductMode('add')">➕ إضافة جديد</button>
-      <button id="modeEdit" onclick="setProductMode('edit')">✏️ تعديل منتج</button>
+      <button id="modeEdit" onclick="setProductMode('edit')">✏️ تعديل صنف</button>
     </div>
 
     <form id="productForm">
+      <!-- اختيار صنف للتعديل -->
       <div id="selectProductGroup" class="form-group hidden">
-        <label>اختر المنتج للتعديل:</label>
+        <label>اختر المنتج المراد تعديله:</label>
         <select id="productSelect" onchange="onProductSelectChange()">
-          <option value="">-- اختر صنفاً --</option>
+          <option value="">-- جاري تحميل الأصناف... --</option>
         </select>
       </div>
 
       <div class="form-group">
-        <label>اسم المنتج</label>
+        <label>اسم المنتج *</label>
         <input type="text" id="pName" required placeholder="مثال: كاجو محمص فاخر">
       </div>
 
+      <!-- القسم الرئيسي الذكي (Datalist) -->
       <div class="form-group">
-        <label>القسم الرئيسي</label>
-        <select id="pCategory" onchange="updateSubCategories()" required>
-          <option value="القهوة والمشروبات الساخنة">القهوة والمشروبات الساخنة</option>
-          <option value="الموالح والمكسرات">الموالح والمكسرات</option>
-          <option value="الحلويات والسكاكر">الحلويات والسكاكر</option>
-          <option value="العسل والتمور">العسل والتمور</option>
-          <option value="البسكويت والكيك والشوكولا">البسكويت والكيك والشوكولا</option>
-          <option value="الشيبس والسناكس">الشيبس والسناكس</option>
-        </select>
+        <label>القسم الرئيسي (اختر من الموجود أو اكتب جديداً) *</label>
+        <input list="categoryList" id="pCategory" required placeholder="اضغط للاختيار أو اكتب قسماً جديداً..." onchange="onCategoryInputChange()">
+        <datalist id="categoryList"></datalist>
       </div>
 
+      <!-- القسم الفرعي الذكي (Datalist) -->
       <div class="form-group">
-        <label>القسم الفرعي</label>
-        <select id="pSubcat"></select>
+        <label>القسم الفرعي (اختر من المقترح أو اكتب جديداً)</label>
+        <input list="subcatList" id="pSubcat" placeholder="اضغط للاختيار أو اكتب فرعاً جديداً...">
+        <datalist id="subcatList"></datalist>
       </div>
 
       <div style="display: flex; gap: 10px;">
         <div class="form-group" style="flex: 1;">
-          <label>السعر</label>
-          <input type="number" id="pPrice" required placeholder="190000">
+          <label>السعر (ل.س) *</label>
+          <input type="number" id="pPrice" required placeholder="1900">
         </div>
         <div class="form-group" style="flex: 1;">
-          <label>طريقة التسعير</label>
-          <select id="pPriceText">
+          <label>طريقة البيع</label>
+          <select id="pIsWeight">
             <option value="بالوزن">بالوزن</option>
             <option value="بالقطعة">بالقطعة</option>
           </select>
         </div>
       </div>
 
-      <div class="form-group">
-        <label>حالة التوفر</label>
-        <select id="pAvailable">
-          <option value="متوفر">متوفر</option>
-          <option value="غير متوفر">غير متوفر</option>
-        </select>
+      <div style="display: flex; gap: 10px;">
+        <div class="form-group" style="flex: 1;">
+          <label>تسعير مخصص (اختياري)</label>
+          <input list="customPriceList" id="pCustomPriceText" placeholder="مثلاً: حسب الصنف">
+          <datalist id="customPriceList">
+            <option value="حسب الصنف">
+          </datalist>
+        </div>
+        <div class="form-group" style="flex: 1;">
+          <label>حالة التوفر</label>
+          <select id="pAvailable">
+            <option value="متوفر">متوفر</option>
+            <option value="غير متوفر">غير متوفر</option>
+          </select>
+        </div>
       </div>
 
       <div class="form-group">
-        <label>ملاحظات إضافية (Placeholder)</label>
-        <input type="text" id="pPlaceholder" placeholder="مثلاً: خفيف ملح، محمص...">
+        <label>ملاحظات إرشادية للصنف (Placeholder)</label>
+        <input type="text" id="pPlaceholder" placeholder="مثلاً: خفيف ملح، طحن ناعم...">
       </div>
 
       <div class="form-group">
         <label>صورة المنتج</label>
         <label for="pImgFile" class="upload-box">📷 اختيار صورة من الجوال</label>
         <input type="file" id="pImgFile" accept="image/*" style="display:none;" onchange="previewImg(this, 'pPreview')">
-        <img id="pPreview" class="img-preview">
+        <img id="pPreview" class="img-preview" alt="معاينة">
       </div>
 
-      <button type="submit" id="pSubmitBtn" class="submit-btn">حفظ المنتج</button>
+      <button type="submit" id="pSubmitBtn" class="submit-btn">حفظ في جدول غوغل</button>
       <div id="pStatus" class="status"></div>
     </form>
   </div>
 
-  <!-- 2. قسم إدارة العروض -->
+  <!-- قسم إدارة العروض -->
   <div id="offersSection" class="card hidden">
+    <div class="sub-mode">
+      <button id="oModeAdd" class="active" onclick="setOfferMode('add')">➕ إضافة عرض جديد</button>
+      <button id="oModeEdit" onclick="setOfferMode('edit')">✏️ تعديل عرض قائم</button>
+    </div>
+
     <form id="offerForm">
-      <div class="form-group">
-        <label>عنوان العرض</label>
-        <input type="text" id="oTitle" required placeholder="مثال: خصم 20% على القهوة">
-      </div>
-      <div class="form-group">
-        <label>وصف العرض</label>
-        <textarea id="oDesc" rows="2" placeholder="تفاصيل العرض..."></textarea>
-      </div>
-      <div class="form-group">
-        <label>حالة العرض</label>
-        <select id="oAvailable">
-          <option value="متوفر">متوفر بالسلايدر</option>
-          <option value="غير متوفر">مخفي</option>
+      <div id="selectOfferGroup" class="form-group hidden">
+        <label>اختر العرض للتعديل:</label>
+        <select id="offerSelect" onchange="onOfferSelectChange()">
+          <option value="">-- جاري التحميل... --</option>
         </select>
       </div>
+
+      <div class="form-group">
+        <label>عنوان العرض الرئيسي *</label>
+        <input type="text" id="oTitle" required placeholder="مثال: خصم 20% على القهوة والمكسرات">
+      </div>
+
+      <div class="form-group">
+        <label>وصف العرض</label>
+        <textarea id="oDesc" rows="2" placeholder="تفاصيل إضافية عن العرض..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>حالة ظهور العرض بالسلايدر</label>
+        <select id="oAvailable">
+          <option value="متوفر">متوفر (يظهر بالسلايدر)</option>
+          <option value="غير متوفر">غير متوفر (مخفي)</option>
+        </select>
+      </div>
+
       <div class="form-group">
         <label>صورة السلايدر</label>
         <label for="oImgFile" class="upload-box">📷 اختيار صورة العرض</label>
         <input type="file" id="oImgFile" accept="image/*" style="display:none;" onchange="previewImg(this, 'oPreview')">
-        <img id="oPreview" class="img-preview">
+        <img id="oPreview" class="img-preview" alt="معاينة">
       </div>
-      <button type="submit" id="oSubmitBtn" class="submit-btn">نشر العرض بالسلايدر</button>
+
+      <button type="submit" id="oSubmitBtn" class="submit-btn">حفظ العرض بالسلايدر</button>
       <div id="oStatus" class="status"></div>
     </form>
   </div>
 </div>
 
+<!-- شريط تثبيت تطبيق الإدارة الذكي (PWA) -->
+<div id="adminInstallBanner" style="display:none; position:fixed; top:12px; left:50%; transform:translateX(-50%); width:calc(100% - 24px); max-width:480px; background:#1e1e1e; border:1px solid var(--primary); border-radius:14px; padding:10px 14px; z-index:9999; box-shadow:0 8px 25px rgba(0,0,0,0.45); align-items:center; justify-content:space-between; gap:10px; color:#fff;">
+  <div style="display:flex; align-items:center; gap:10px;">
+    <img src="https://res.cloudinary.com/dvzg70krq/image/upload/v1787113381/file_0000000043b081f4b8be26c2a5eab862_hzdker.png" style="width:38px; height:38px; border-radius:8px; border:1px solid var(--primary);" alt="أيقونة الإدارة">
+    <div>
+      <div style="font-family:'Cairo'; font-weight:800; font-size:0.88rem; color:var(--primary);">تثبيت إدارة التطبيق</div>
+      <div style="font-size:0.72rem; color:#aaa;">لإدارة الأسعار والمنتجات بلمسة واحدة من شاشتك</div>
+    </div>
+  </div>
+  <div style="display:flex; gap:6px; align-items:center;">
+    <button id="adminInstallBtn" style="background:var(--primary); color:#000; border:none; padding:7px 14px; border-radius:8px; font-weight:bold; font-size:0.8rem; cursor:pointer;">تثبيت</button>
+    <button onclick="document.getElementById('adminInstallBanner').style.display='none'" style="background:transparent; border:none; color:#aaa; font-size:1.1rem; cursor:pointer; padding:0 4px;">✕</button>
+  </div>
+</div>
+
 <script>
+  // تفعيل خدمة الـ PWA
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+  }
+
+  let adminPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    adminPrompt = e;
+    const banner = document.getElementById('adminInstallBanner');
+    if (banner) banner.style.display = 'flex';
+  });
+
+  const aBtn = document.getElementById('adminInstallBtn');
+  if (aBtn) {
+    aBtn.addEventListener('click', async () => {
+      if (adminPrompt) {
+        adminPrompt.prompt();
+        const { outcome } = await adminPrompt.userChoice;
+        if (outcome === 'accepted') {
+          document.getElementById('adminInstallBanner').style.display = 'none';
+        }
+        adminPrompt = null;
+      }
+    });
+  }
+
+  // --- إعدادات النظام والسحابة ---
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyEWgcYs1dV3hKP9Qivx3gOOJlCgUBEKibqeNUfQ7c-z0XOwxrgwfqhOt_isoe4K_Wv/exec";
   const CLOUD_NAME = "dvzg70krq";
   const UPLOAD_PRESET = "alnahhas";
 
   let currentPin = sessionStorage.getItem('auth_pin') || '';
+  let allProducts = [];
+  let allOffers = [];
+  let categoriesMap = {};
+  let currentProductMode = 'add';
+  let currentOfferMode = 'add';
 
-  // التحقق التلقائي عند فتح الصفحة
+  // فحص الجلسة عند الفتح
   if (currentPin) {
     verifyAndUnlock(currentPin, false);
   }
@@ -225,13 +336,12 @@
     const pin = document.getElementById('pinInput').value;
     const btn = document.getElementById('loginBtn');
     const err = document.getElementById('pinError');
-    
     btn.disabled = true;
     err.textContent = 'جاري التحقق من السيرفر... ⏳';
 
-    const success = await verifyAndUnlock(pin, true);
+    const ok = await verifyAndUnlock(pin, true);
     btn.disabled = false;
-    if (!success) {
+    if (!ok) {
       err.textContent = 'رمز PIN غير صحيح ❌';
       document.getElementById('pinInput').value = '';
     }
@@ -245,6 +355,7 @@
         currentPin = pin;
         sessionStorage.setItem('auth_pin', pin);
         document.getElementById('lockScreen').classList.add('hidden');
+        loadAllData();
         return true;
       }
     } catch (e) {}
@@ -257,29 +368,125 @@
     location.reload();
   }
 
-  const subCatsMap = {
-    "القهوة والمشروبات الساخنة": ["قهوة مطحونة", "هيل", "بن معبأ", "مشروبات ساخنة وبودرة"],
-    "الموالح والمكسرات": ["خلطات خاصة ومكسرات", "كراكرز وموالح", "بزورات", "مكسرات نية وطبخ"],
-    "الحلويات والسكاكر": ["شوكولا وضيافة", "توفي ومصاص", "ملبس ومسليات"],
-    "العسل والتمور": ["عسل", "تمور", "فواكه مجففة وزبيب"],
-    "البسكويت والكيك والشوكولا": ["بالحبة", "بالعلبة", "بسكويت فرط", "شوكولا الدهن"],
-    "الشيبس والسناكس": ["شيبس", "شيبس فرط"]
-  };
+  // جلب كافة البيانات ديناميكياً
+  async function loadAllData() {
+    try {
+      const [pRes, oRes] = await Promise.all([
+        fetch(`${SCRIPT_URL}?action=getProducts`),
+        fetch(`${SCRIPT_URL}?action=getOffers`)
+      ]);
+      const pData = await pRes.json();
+      const oData = await oRes.json();
 
-  let allProducts = [];
-  let currentProductMode = 'add';
+      allProducts = pData.data || [];
+      allOffers = oData.data || [];
 
-  function updateSubCategories() {
-    const cat = document.getElementById('pCategory').value;
-    const subSelect = document.getElementById('pSubcat');
-    subSelect.innerHTML = '';
-    (subCatsMap[cat] || []).forEach(sub => {
+      buildDynamicCategories();
+      populateProductDropdown();
+      populateOfferDropdown();
+    } catch (err) {
+      console.error("خطأ في جلب البيانات:", err);
+    }
+  }
+
+  function buildDynamicCategories() {
+    categoriesMap = {};
+    allProducts.forEach(p => {
+      const cat = (p.category || '').trim();
+      const sub = (p.subcat || '').trim();
+      if (cat) {
+        if (!categoriesMap[cat]) categoriesMap[cat] = new Set();
+        if (sub) categoriesMap[cat].add(sub);
+      }
+    });
+
+    // ملء Datalist للقسم الرئيسي
+    const catList = document.getElementById('categoryList');
+    catList.innerHTML = '';
+    Object.keys(categoriesMap).forEach(cat => {
       const opt = document.createElement('option');
-      opt.value = sub; opt.textContent = sub;
-      subSelect.appendChild(opt);
+      opt.value = cat;
+      catList.appendChild(opt);
     });
   }
-  updateSubCategories();
+
+  function onCategoryInputChange() {
+    const selectedCat = document.getElementById('pCategory').value.trim();
+    const subList = document.getElementById('subcatList');
+    subList.innerHTML = '';
+
+    if (categoriesMap[selectedCat]) {
+      categoriesMap[selectedCat].forEach(sub => {
+        const opt = document.createElement('option');
+        opt.value = sub;
+        subList.appendChild(opt);
+      });
+    }
+  }
+
+  function populateProductDropdown() {
+    const select = document.getElementById('productSelect');
+    select.innerHTML = '<option value="">-- اختر صنفاً للتعديل --</option>';
+    allProducts.forEach(p => {
+      const opt = document.createElement('option');
+      opt.value = p.id;
+      opt.textContent = `[${p.id}] ${p.name} - ${p.price} ل.س`;
+      select.appendChild(opt);
+    });
+  }
+
+  function populateOfferDropdown() {
+    const select = document.getElementById('offerSelect');
+    select.innerHTML = '<option value="">-- اختر عرضاً للتعديل --</option>';
+    allOffers.forEach(o => {
+      const opt = document.createElement('option');
+      opt.value = o.id;
+      opt.textContent = `[${o.id}] ${o.title}`;
+      select.appendChild(opt);
+    });
+  }
+
+  function onProductSelectChange() {
+    const id = document.getElementById('productSelect').value;
+    const p = allProducts.find(item => item.id == id);
+    if (!p) return;
+
+    document.getElementById('pName').value = p.name || '';
+    document.getElementById('pCategory').value = p.category || '';
+    onCategoryInputChange();
+    document.getElementById('pSubcat').value = p.subcat || '';
+    document.getElementById('pPrice').value = p.price || 0;
+    document.getElementById('pIsWeight').value = p.isWeight || 'بالوزن';
+    document.getElementById('pCustomPriceText').value = p.customPriceText || '';
+    document.getElementById('pAvailable').value = p.available || 'متوفر';
+    document.getElementById('pPlaceholder').value = p.placeholder || '';
+
+    const prev = document.getElementById('pPreview');
+    if (p.img) {
+      prev.src = p.img;
+      prev.style.display = 'block';
+    } else {
+      prev.style.display = 'none';
+    }
+  }
+
+  function onOfferSelectChange() {
+    const id = document.getElementById('offerSelect').value;
+    const o = allOffers.find(item => item.id == id);
+    if (!o) return;
+
+    document.getElementById('oTitle').value = o.title || '';
+    document.getElementById('oDesc').value = o.description || '';
+    document.getElementById('oAvailable').value = o.available || 'متوفر';
+
+    const prev = document.getElementById('oPreview');
+    if (o.img) {
+      prev.src = o.img;
+      prev.style.display = 'block';
+    } else {
+      prev.style.display = 'none';
+    }
+  }
 
   function switchMainTab(tab) {
     document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', (tab === 'products' ? i===0 : i===1)));
@@ -294,51 +501,15 @@
     document.getElementById('selectProductGroup').classList.toggle('hidden', mode === 'add');
     document.getElementById('productForm').reset();
     document.getElementById('pPreview').style.display = 'none';
-    updateSubCategories();
-
-    if (mode === 'edit' && allProducts.length === 0) {
-      loadProductsList();
-    }
   }
 
-  async function loadProductsList() {
-    const select = document.getElementById('productSelect');
-    select.innerHTML = '<option>جاري جلب المنتجات...</option>';
-    try {
-      const res = await fetch(`${SCRIPT_URL}?action=getProducts&pin=${encodeURIComponent(currentPin)}`);
-      const data = await res.json();
-      allProducts = data.data || [];
-      select.innerHTML = '<option value="">-- اختر صنفاً للتعديل --</option>';
-      allProducts.forEach(p => {
-        const opt = document.createElement('option');
-        opt.value = p.id;
-        opt.textContent = `${p.name} (${p.price})`;
-        select.appendChild(opt);
-      });
-    } catch (e) {
-      select.innerHTML = '<option>تعذر جلب المنتجات</option>';
-    }
-  }
-
-  function onProductSelectChange() {
-    const id = document.getElementById('productSelect').value;
-    const p = allProducts.find(item => item.id == id);
-    if (!p) return;
-
-    document.getElementById('pName').value = p.name || '';
-    document.getElementById('pCategory').value = p.category || 'القهوة والمشروبات الساخنة';
-    updateSubCategories();
-    document.getElementById('pSubcat').value = p.subcat || '';
-    document.getElementById('pPrice').value = p.price || 0;
-    document.getElementById('pPriceText').value = p.customPriceText || 'بالوزن';
-    document.getElementById('pAvailable').value = p.available || 'متوفر';
-    document.getElementById('pPlaceholder').value = p.placeholder || '';
-    
-    if (p.img) {
-      const prev = document.getElementById('pPreview');
-      prev.src = p.img;
-      prev.style.display = 'block';
-    }
+  function setOfferMode(mode) {
+    currentOfferMode = mode;
+    document.getElementById('oModeAdd').classList.toggle('active', mode === 'add');
+    document.getElementById('oModeEdit').classList.toggle('active', mode === 'edit');
+    document.getElementById('selectOfferGroup').classList.toggle('hidden', mode === 'add');
+    document.getElementById('offerForm').reset();
+    document.getElementById('oPreview').style.display = 'none';
   }
 
   function previewImg(input, previewId) {
@@ -354,24 +525,29 @@
     fd.append('file', file);
     fd.append('upload_preset', UPLOAD_PRESET);
     const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { method: 'POST', body: fd });
+    if (!res.ok) throw new Error('فشل رفع الصورة إلى Cloudinary');
     const data = await res.json();
     return data.secure_url;
   }
 
-  // حفظ المنتج مع إرسال الـ PIN المشفر للسيرفر
+  // حفظ / تعديل المنتج
   document.getElementById('productForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = document.getElementById('pSubmitBtn');
     const status = document.getElementById('pStatus');
     btn.disabled = true;
     status.style.color = '#c9933f';
-    status.textContent = 'جاري الحفظ... ⏳';
+    status.textContent = 'جاري الحفظ بالسيرفر... ⏳';
 
     try {
       let imgUrl = '';
       const file = document.getElementById('pImgFile').files[0];
-      if (file) imgUrl = await uploadToCloudinary(file);
+      if (file) {
+        status.textContent = 'جاري رفع الصورة إلى السحابة... ☁️';
+        imgUrl = await uploadToCloudinary(file);
+      }
 
+      status.textContent = 'جاري تسجيل البيانات في الشيت... 📊';
       const payload = {
         pin: currentPin,
         action: currentProductMode === 'add' ? 'addProduct' : 'updateProduct',
@@ -380,7 +556,8 @@
         category: document.getElementById('pCategory').value,
         subcat: document.getElementById('pSubcat').value,
         price: document.getElementById('pPrice').value,
-        customPriceText: document.getElementById('pPriceText').value,
+        isWeight: document.getElementById('pIsWeight').value,
+        customPriceText: document.getElementById('pCustomPriceText').value,
         available: document.getElementById('pAvailable').value,
         placeholder: document.getElementById('pPlaceholder').value,
         img: imgUrl
@@ -394,27 +571,25 @@
       const data = await res.json();
 
       if (data.status === 'success') {
-        status.style.color = '#4CAF50';
+        status.style.color = 'var(--success)';
         status.textContent = '✅ ' + data.message;
+        await loadAllData();
         if (currentProductMode === 'add') {
           document.getElementById('productForm').reset();
           document.getElementById('pPreview').style.display = 'none';
-        } else {
-          allProducts = [];
-          loadProductsList();
         }
       } else {
         throw new Error(data.message);
       }
     } catch (err) {
-      status.style.color = '#ff4d4d';
+      status.style.color = 'var(--danger)';
       status.textContent = '❌ خطأ: ' + err.message;
     } finally {
       btn.disabled = false;
     }
   });
 
-  // حفظ العرض بالسلايدر
+  // حفظ / تعديل العرض
   document.getElementById('offerForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = document.getElementById('oSubmitBtn');
@@ -426,11 +601,15 @@
     try {
       let imgUrl = '';
       const file = document.getElementById('oImgFile').files[0];
-      if (file) imgUrl = await uploadToCloudinary(file);
+      if (file) {
+        status.textContent = 'جاري رفع صورة السلايدر... ☁️';
+        imgUrl = await uploadToCloudinary(file);
+      }
 
       const payload = {
         pin: currentPin,
-        action: 'addOffer',
+        action: currentOfferMode === 'add' ? 'addOffer' : 'updateOffer',
+        id: currentOfferMode === 'edit' ? document.getElementById('offerSelect').value : undefined,
         title: document.getElementById('oTitle').value,
         description: document.getElementById('oDesc').value,
         available: document.getElementById('oAvailable').value,
@@ -445,15 +624,18 @@
       const data = await res.json();
 
       if (data.status === 'success') {
-        status.style.color = '#4CAF50';
-        status.textContent = '✅ تم نشر العرض بنجاح!';
-        document.getElementById('offerForm').reset();
-        document.getElementById('oPreview').style.display = 'none';
+        status.style.color = 'var(--success)';
+        status.textContent = '✅ ' + data.message;
+        await loadAllData();
+        if (currentOfferMode === 'add') {
+          document.getElementById('offerForm').reset();
+          document.getElementById('oPreview').style.display = 'none';
+        }
       } else {
         throw new Error(data.message);
       }
     } catch (err) {
-      status.style.color = '#ff4d4d';
+      status.style.color = 'var(--danger)';
       status.textContent = '❌ خطأ: ' + err.message;
     } finally {
       btn.disabled = false;
