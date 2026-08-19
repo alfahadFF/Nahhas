@@ -139,7 +139,7 @@
 
   <div class="tabs">
     <button class="tab-btn active" onclick="switchMainTab('products')">📦 إدارة المنتجات</button>
-    <button class="tab-btn" onclick="switchMainTab('offers')">🔥 عروض السلايدر</button>
+    <button class="tab-btn" onclick="switchMainTab('offers')">🔥 عروض السلايدر (3D)</button>
   </div>
 
   <!-- قسم إدارة المنتجات -->
@@ -220,12 +220,12 @@
         <img id="pPreview" class="img-preview" alt="معاينة">
       </div>
 
-      <button type="submit" id="pSubmitBtn" class="submit-btn">حفظ </button>
+      <button type="submit" id="pSubmitBtn" class="submit-btn">حفظ المنتج</button>
       <div id="pStatus" class="status"></div>
     </form>
   </div>
 
-  <!-- قسم إدارة العروض -->
+  <!-- قسم إدارة العروض (تم تحديثه بالكامل للـ 3D Coverflow) -->
   <div id="offersSection" class="card hidden">
     <div class="sub-mode">
       <button id="oModeAdd" class="active" onclick="setOfferMode('add')">➕ إضافة عرض جديد</button>
@@ -242,12 +242,37 @@
 
       <div class="form-group">
         <label>عنوان العرض الرئيسي *</label>
-        <input type="text" id="oTitle" required placeholder="مثال: خصم 20% على القهوة والمكسرات">
+        <input type="text" id="oTitle" required placeholder="مثال: بكج السهرة الملوكي الذهبي">
       </div>
 
       <div class="form-group">
-        <label>وصف العرض</label>
-        <textarea id="oDesc" rows="2" placeholder="تفاصيل إضافية عن العرض..."></textarea>
+        <label>شارة العرض الترويجية (Badge) *</label>
+        <input list="badgeList" id="oBadge" required placeholder="مثال: توفير 25% أو الأكثر طلباً">
+        <datalist id="badgeList">
+          <option value="عرض مميز 🔥">
+          <option value="توفير 25%">
+          <option value="توفير 20%">
+          <option value="الأكثر طلباً ⭐">
+          <option value="عرض نهاية الأسبوع">
+          <option value="بكج السهرة">
+        </datalist>
+      </div>
+
+      <!-- حقول التسعير قبل وبعد الخصم -->
+      <div style="display: flex; gap: 10px;">
+        <div class="form-group" style="flex: 1;">
+          <label>السعر الجديد بعد الخصم (ل.س) *</label>
+          <input type="number" id="oNewPrice" required placeholder="90000">
+        </div>
+        <div class="form-group" style="flex: 1;">
+          <label>السعر القديم قبل الخصم (ل.س)</label>
+          <input type="number" id="oOldPrice" placeholder="120000">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>وصف وتفاصيل العرض</label>
+        <textarea id="oDesc" rows="2" placeholder="مكونات البكج أو تفاصيل التوفير..."></textarea>
       </div>
 
       <div class="form-group">
@@ -441,7 +466,8 @@
     allOffers.forEach(o => {
       const opt = document.createElement('option');
       opt.value = o.id;
-      opt.textContent = `[${o.id}] ${o.title}`;
+      const pText = o.newPrice ? ` - ${o.newPrice} ل.س` : '';
+      opt.textContent = `[${o.id}] ${o.title}${pText}`;
       select.appendChild(opt);
     });
   }
@@ -476,7 +502,10 @@
     if (!o) return;
 
     document.getElementById('oTitle').value = o.title || '';
-    document.getElementById('oDesc').value = o.description || '';
+    document.getElementById('oBadge').value = o.badge || '';
+    document.getElementById('oNewPrice').value = o.newPrice || o.price || '';
+    document.getElementById('oOldPrice').value = o.oldPrice || '';
+    document.getElementById('oDesc').value = o.description || o.desc || '';
     document.getElementById('oAvailable').value = o.available || 'متوفر';
 
     const prev = document.getElementById('oPreview');
@@ -525,7 +554,7 @@
     fd.append('file', file);
     fd.append('upload_preset', UPLOAD_PRESET);
     const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { method: 'POST', body: fd });
-    if (!res.ok) throw new Error('فشل رفع الصورة  ');
+    if (!res.ok) throw new Error('فشل رفع الصورة');
     const data = await res.json();
     return data.secure_url;
   }
@@ -543,11 +572,11 @@
       let imgUrl = '';
       const file = document.getElementById('pImgFile').files[0];
       if (file) {
-        status.textContent = 'جاري رفع الصورة  ... ☁️';
+        status.textContent = 'جاري رفع الصورة... ☁️';
         imgUrl = await uploadToCloudinary(file);
       }
 
-      status.textContent = ' جاري الحفظ  ... 📊';
+      status.textContent = 'جاري الحفظ... 📊';
       const payload = {
         pin: currentPin,
         action: currentProductMode === 'add' ? 'addProduct' : 'updateProduct',
@@ -589,7 +618,7 @@
     }
   });
 
-  // حفظ / تعديل العرض
+  // حفظ / تعديل العرض (تم إضافة badge, newPrice, oldPrice)
   document.getElementById('offerForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = document.getElementById('oSubmitBtn');
@@ -611,6 +640,9 @@
         action: currentOfferMode === 'add' ? 'addOffer' : 'updateOffer',
         id: currentOfferMode === 'edit' ? document.getElementById('offerSelect').value : undefined,
         title: document.getElementById('oTitle').value,
+        badge: document.getElementById('oBadge').value,
+        newPrice: document.getElementById('oNewPrice').value,
+        oldPrice: document.getElementById('oOldPrice').value,
         description: document.getElementById('oDesc').value,
         available: document.getElementById('oAvailable').value,
         img: imgUrl
