@@ -1,0 +1,17 @@
+{
+  "name": "محمصة وموالح النحاس",
+  "short_name": "محمصة النحاس",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#2B1810",
+  "theme_color": "#2B1810",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://res.cloudinary.com/dvzg70krq/image/upload/v1787113384/file_000000007c108243a8f3234e7c5df1db_scgh0e.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
