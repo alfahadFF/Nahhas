@@ -32,6 +32,7 @@
       --ink-muted: #666666;
       --burgundy: #8B1E1E;
       --green: #1E7E34;
+      --green-wa: #25D366;
       --shadow-sm: 0 2px 8px rgba(43, 24, 16, 0.06);
       --shadow-md: 0 6px 20px rgba(43, 24, 16, 0.10);
       --radius-sm: 8px;
@@ -115,74 +116,139 @@
       align-items: center;
       justify-content: center;
       text-decoration: none;
+      transition: transform 0.2s ease;
+    }
+    .btn-call:active {
+      transform: scale(0.92);
     }
 
-    /* سلايدر العروض */
+    /* سلايدر العروض ثلاثي الأبعاد 3D Coverflow */
     .hero-wrap {
-      padding: 16px 14px 8px;
-      background: linear-gradient(180deg, var(--espresso) 0%, var(--cream-soft) 100%);
+      padding: 14px 0 16px;
+      background: linear-gradient(180deg, var(--espresso) 0%, #1e110b 80%, var(--cream) 100%);
+      position: relative;
+      overflow: hidden;
     }
     .hero-title {
       text-align: center;
       color: var(--gold-light);
       font-family: 'Cairo', sans-serif;
-      font-weight: 700;
-      font-size: 0.95rem;
+      font-weight: 800;
+      font-size: 1.05rem;
       margin-bottom: 12px;
     }
-    .offers-scroller {
-      display: flex;
-      gap: 12px;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      padding-bottom: 8px;
-      scrollbar-width: none;
-    }
-    .offers-scroller::-webkit-scrollbar { display: none; }
-    .offer-card {
-      flex: 0 0 88%;
-      scroll-snap-align: center;
-      background: var(--surface);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      border: 1px solid var(--gold);
-      box-shadow: var(--shadow-md);
-      display: flex;
-      flex-direction: column;
-    }
-    .offer-img {
+    .coverflow {
+      position: relative;
+      height: 230px;
+      perspective: 1100px;
       width: 100%;
-      height: 130px;
+      overflow: hidden;
+    }
+    .cf-track {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .cf-slide {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 74%;
+      height: 100%;
+      margin-left: -37%;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.5s ease, filter 0.5s ease;
+      box-shadow: 0 14px 28px rgba(0,0,0,0.5);
+      border: 1px solid rgba(201,162,39,0.4);
+      background: #000;
+    }
+    .cf-slide img {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
+      display: block;
     }
-    .offer-card-body {
-      padding: 10px 12px;
+    .cf-slide::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(20,10,6,0.92) 0%, rgba(20,10,6,0.2) 65%, transparent 100%);
     }
-    .offer-badge {
+    .cf-slide .cf-info {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      padding: 12px 14px;
+      z-index: 2;
+    }
+    .cf-badge {
       display: inline-block;
-      background: var(--burgundy);
-      color: #fff;
-      font-size: 0.7rem;
-      font-weight: 800;
+      background: var(--gold);
+      color: var(--espresso);
+      font-family: 'Cairo', sans-serif;
+      font-weight: 900;
+      font-size: 0.65rem;
       padding: 2px 8px;
-      border-radius: 4px;
+      border-radius: 12px;
       margin-bottom: 4px;
     }
-    .offer-title {
+    .cf-slide h3 {
+      font-family: 'Cairo', sans-serif;
+      color: var(--cream);
+      font-size: 0.98rem;
+      margin-bottom: 3px;
+      line-height: 1.2;
+    }
+    .cf-prices {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .cf-price-new {
       font-family: 'Cairo', sans-serif;
       font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--espresso);
+      font-weight: 800;
+      color: var(--gold-light);
     }
-    .offer-desc {
-      font-size: 0.8rem;
-      color: var(--ink-muted);
+    .cf-price-old {
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.72rem;
+      text-decoration: line-through;
+      opacity: 0.75;
+      color: #fff;
+    }
+    .cf-tap {
+      font-family: 'Cairo', sans-serif;
+      font-size: 0.62rem;
+      color: var(--gold-bronze);
       margin-top: 2px;
+    }
+    .cf-dots {
+      display: flex;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .cf-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(201,162,39,0.3);
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    .cf-dot.active {
+      width: 20px;
+      border-radius: 4px;
+      background: var(--gold);
     }
 
     /* البحث والتصنيفات */
     .search-box {
-      padding: 8px 14px 4px;
+      padding: 10px 14px 4px;
     }
     .search-input-wrap {
       position: relative;
@@ -497,7 +563,7 @@
       position: fixed;
       inset: 0;
       background: rgba(0,0,0,0.65);
-      backdrop-filter: blur(3px);
+      backdrop-filter: blur(4px);
       z-index: 300;
       display: none;
       align-items: flex-end;
@@ -515,6 +581,8 @@
       overflow-y: auto;
       padding: 20px 18px 30px;
       animation: slideUp 0.25s ease-out;
+      border-top: 2px solid var(--gold);
+      position: relative;
     }
     @keyframes slideUp {
       from { transform: translateY(100%); }
@@ -544,6 +612,15 @@
       font-weight: bold;
       color: var(--ink);
       cursor: pointer;
+    }
+
+    /* نافذة تفاصيل العرض المنبثقة */
+    .offer-modal-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+      margin-bottom: 12px;
     }
 
     .inv-list {
@@ -663,7 +740,7 @@
 
     .btn-wa-action {
       width: 100%;
-      background: #25D366;
+      background: var(--green-wa);
       color: #ffffff;
       border: none;
       padding: 13px;
@@ -792,16 +869,19 @@
       </div>
     </div>
     <div class="topbar-actions">
-      <a class="btn-call" href="tel:00963991457935" aria-label="اتصال مباشر">
+      <a class="btn-call dynamic-tel-link" href="tel:00963991457935" aria-label="اتصال مباشر">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
       </a>
     </div>
   </header>
 
-  <!-- سلايدر العروض التفاعلي من الشيت -->
+  <!-- سلايدر العروض التفاعلي 3D Coverflow من الشيت -->
   <section class="hero-wrap" id="heroSection" style="display: none;">
     <div class="hero-title">✨ عروض خاصة وحصرية ✨</div>
-    <div class="offers-scroller" id="offersScroller"></div>
+    <div class="coverflow" id="coverflow">
+      <div class="cf-track" id="cfTrack"></div>
+    </div>
+    <div class="cf-dots" id="cfDots"></div>
   </section>
 
   <!-- صندوق البحث السريع -->
@@ -839,7 +919,7 @@
       <a href="https://maps.app.goo.gl/KJxXjAUhrG2TyKcy9" target="_blank">📍 موقعنا على الخريطة (انقر للوصول)</a>
     </div>
     <div class="contact-line">
-      <a href="tel:00963991457935" dir="ltr">📞 00963991457935</a>
+      <a class="dynamic-tel-link" href="tel:00963991457935" dir="ltr">📞 <span id="footerPhoneDisplay">00963991457935</span></a>
     </div>
     <p style="font-size:0.75rem; color:var(--gold-bronze); margin-top:10px;">جميع الحقوق محفوظة © محمصة وموالح النحاس</p>
   </footer>
@@ -853,6 +933,26 @@
     <span class="badge-count" id="cartCount">0</span>
   </div>
   <span class="cart-total-badge" id="cartTotal">0 ل.س</span>
+</div>
+
+<!-- نافذة تفاصيل العرض المنبثقة 3D Offer Modal -->
+<div class="overlay" id="offerModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title" id="offerModalTitle">تفاصيل العرض</h2>
+      <button class="modal-close" id="closeOfferModal">✕</button>
+    </div>
+    <img class="offer-modal-img" id="offerModalImg" src="" alt="صورة العرض">
+    <span class="cf-badge" id="offerModalBadge" style="margin-bottom:8px;"></span>
+    <div style="display:flex; align-items:baseline; gap:10px; margin:8px 0 10px;">
+      <span id="offerModalPriceNew" style="font-family:'Cairo'; font-weight:900; font-size:1.25rem; color:var(--burgundy);"></span>
+      <span id="offerModalPriceOld" style="font-family:'Cairo'; font-size:0.9rem; color:var(--ink-muted); text-decoration:line-through;"></span>
+    </div>
+    <p id="offerModalDesc" style="font-size:0.85rem; color:var(--ink-muted); line-height:1.6; margin-bottom:16px;"></p>
+    <button type="button" class="btn-wa-action" style="background:var(--espresso); color:var(--gold);" id="btnAddOfferToCart">
+      🛒 إضافة هذا العرض للفاتورة
+    </button>
+  </div>
 </div>
 
 <!-- نافذة الفاتورة والطلب -->
@@ -968,6 +1068,39 @@
     });
   }
 
+  // ==========================================
+  // إعدادات أرقام الواتساب وجدولة الورديات
+  // ==========================================
+  // الوردية الأولى: من 08:00 صباحاً حتى 03:00 عصراً (15:00)
+  const WA_SHIFT_1 = "963991457935"; 
+
+  // الوردية الثانية: من 03:00 عصراً (15:00) حتى 02:00 منتصف الليل
+  const WA_SHIFT_2 = "963991457935"; // يمكنك تعديل هذا الرقم لاحقاً للوردية المسائية
+
+  function getActiveWhatsAppNumber() {
+    const hour = new Date().getHours();
+    
+    // من الساعة 8 صباحاً حتى قبل 3 عصراً (8:00 إلى 14:59)
+    if (hour >= 8 && hour < 15) {
+      return WA_SHIFT_1;
+    }
+    // من الساعة 3 عصراً حتى 2 ليلاً (15:00 إلى 23:59 أو 00:00 إلى 01:59)
+    if (hour >= 15 || hour < 2) {
+      return WA_SHIFT_2;
+    }
+    // الفترة الصباحية المبكرة (2:00 إلى 7:59) - الرقم الافتراضي
+    return WA_SHIFT_1;
+  }
+
+  function syncPhoneElements() {
+    const activeNumber = getActiveWhatsAppNumber();
+    document.querySelectorAll('.dynamic-tel-link').forEach(link => {
+      link.href = `tel:00${activeNumber}`;
+    });
+    const footerPhone = document.getElementById('footerPhoneDisplay');
+    if (footerPhone) footerPhone.innerText = `00${activeNumber}`;
+  }
+
   // الرابط الحي للسيرفر
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyEWgcYs1dV3hKP9Qivx3gOOJlCgUBEKibqeNUfQ7c-z0XOwxrgwfqhOt_isoe4K_Wv/exec";
 
@@ -992,13 +1125,22 @@
   let isDelivery = true;
   let cart = JSON.parse(localStorage.getItem('nahhas_cart') || '[]');
 
+  // مؤشرات السلايدر 3D Coverflow
+  let currentOfferIdx = 0;
+  let currentSelectedOffer = null;
+  let coverflowInterval = null;
+
   // محددات العناصر
   const gridEl = document.getElementById('productsGrid');
   const catNavEl = document.getElementById('categoryNav');
   const subcatEl = document.getElementById('subcatContainer');
   const searchInput = document.getElementById('searchInput');
   const heroSection = document.getElementById('heroSection');
-  const offersScroller = document.getElementById('offersScroller');
+  const cfTrack = document.getElementById('cfTrack');
+  const cfDots = document.getElementById('cfDots');
+  const offerModal = document.getElementById('offerModal');
+  const closeOfferModal = document.getElementById('closeOfferModal');
+  const btnAddOfferToCart = document.getElementById('btnAddOfferToCart');
   const cartBubble = document.getElementById('cartBubble');
   const cartCountEl = document.getElementById('cartCount');
   const cartTotalEl = document.getElementById('cartTotal');
@@ -1023,6 +1165,7 @@
 
   // جلب البيانات من السيرفر
   async function initApp() {
+    syncPhoneElements();
     try {
       const [prodRes, offRes] = await Promise.all([
         fetch(`${SCRIPT_URL}?action=getProducts`),
@@ -1040,9 +1183,15 @@
         img: p.img || 'https://res.cloudinary.com/dvzg70krq/image/upload/v1787113384/file_000000007c108243a8f3234e7c5df1db_scgh0e.png'
       }));
 
-      offers = offData.data || [];
+      offers = (offData.data || []).map(o => ({
+        ...o,
+        newPrice: Number(o.newPrice || o.price || 0),
+        oldPrice: Number(o.oldPrice || 0),
+        badge: o.badge || 'عرض مميز 🔥',
+        available: o.available === 'متوفر' || o.available === true || o.available === undefined
+      }));
 
-      renderOffers();
+      renderCoverflowOffers();
       renderCategoryNav();
       renderSubcategories();
       renderProducts();
@@ -1053,31 +1202,147 @@
     }
   }
 
-  // بناء عروض السلايدر
-  function renderOffers() {
-    const validOffers = offers.filter(o => o.available === 'متوفر');
+  // ==========================================
+  // بناء السلايدر ثلاثي الأبعاد (3D Coverflow)
+  // ==========================================
+  function renderCoverflowOffers() {
+    const validOffers = offers.filter(o => o.available);
     if (validOffers.length === 0) {
       heroSection.style.display = 'none';
       return;
     }
 
-    offersScroller.innerHTML = '';
-    validOffers.forEach(o => {
-      const card = document.createElement('div');
-      card.className = 'offer-card';
-      card.innerHTML = `
-        <img class="offer-img" src="${o.img || 'https://res.cloudinary.com/dvzg70krq/image/upload/v1787113384/file_000000007c108243a8f3234e7c5df1db_scgh0e.png'}" alt="${o.title}">
-        <div class="offer-card-body">
-          <span class="offer-badge">عرض مميز 🔥</span>
-          <h3 class="offer-title">${o.title}</h3>
-          ${o.description ? `<p class="offer-desc">${o.description}</p>` : ''}
+    cfTrack.innerHTML = '';
+    cfDots.innerHTML = '';
+    currentOfferIdx = 0;
+
+    validOffers.forEach((off, idx) => {
+      const slide = document.createElement('div');
+      slide.className = 'cf-slide';
+      
+      slide.addEventListener('click', () => {
+        if (currentOfferIdx === idx) {
+          openOfferModalBox(off);
+        } else {
+          currentOfferIdx = idx;
+          updateCoverflowView();
+        }
+      });
+
+      const oldPriceHtml = off.oldPrice > 0 ? `<span class="cf-price-old">${formatPrice(off.oldPrice)}</span>` : '';
+      const newPriceHtml = off.newPrice > 0 ? `<span class="cf-price-new">${formatPrice(off.newPrice)}</span>` : '';
+
+      slide.innerHTML = `
+        <img src="${off.img || 'https://res.cloudinary.com/dvzg70krq/image/upload/v1787113384/file_000000007c108243a8f3234e7c5df1db_scgh0e.png'}" alt="${off.title}">
+        <div class="cf-info">
+          <span class="cf-badge">${off.badge}</span>
+          <h3>${off.title}</h3>
+          <div class="cf-prices">
+            ${newPriceHtml}
+            ${oldPriceHtml}
+          </div>
+          <div class="cf-tap">👆 انقر لمشاهدة التفاصيل</div>
         </div>
       `;
-      offersScroller.appendChild(card);
+      cfTrack.appendChild(slide);
+
+      const dot = document.createElement('div');
+      dot.className = `cf-dot ${idx === 0 ? 'active' : ''}`;
+      dot.addEventListener('click', () => {
+        currentOfferIdx = idx;
+        updateCoverflowView();
+      });
+      cfDots.appendChild(dot);
     });
 
     heroSection.style.display = 'block';
+    updateCoverflowView();
+
+    // تشغيل الدوران التلقائي كل 4 ثوانٍ
+    if (coverflowInterval) clearInterval(coverflowInterval);
+    if (validOffers.length > 1) {
+      coverflowInterval = setInterval(() => {
+        currentOfferIdx = (currentOfferIdx + 1) % validOffers.length;
+        updateCoverflowView();
+      }, 4000);
+    }
   }
+
+  function updateCoverflowView() {
+    const slides = document.querySelectorAll('.cf-slide');
+    const dots = document.querySelectorAll('.cf-dot');
+    const total = slides.length;
+
+    slides.forEach((slide, idx) => {
+      const offset = idx - currentOfferIdx;
+
+      if (offset === 0) {
+        // الشريحة النشطة في المنتصف
+        slide.style.transform = `translateX(0px) translateZ(0px) rotateY(0deg) scale(1)`;
+        slide.style.opacity = '1';
+        slide.style.zIndex = '10';
+        slide.style.filter = 'none';
+      } else if (offset === -1 || (offset > 0 && currentOfferIdx === 0 && idx === total - 1)) {
+        // الشريحة السابقة على اليمين (RTL)
+        slide.style.transform = `translateX(-60%) translateZ(-160px) rotateY(38deg) scale(0.85)`;
+        slide.style.opacity = '0.7';
+        slide.style.zIndex = '5';
+        slide.style.filter = 'brightness(0.6)';
+      } else if (offset === 1 || (offset < 0 && currentOfferIdx === total - 1 && idx === 0)) {
+        // الشريحة التالية على اليسار (RTL)
+        slide.style.transform = `translateX(60%) translateZ(-160px) rotateY(-38deg) scale(0.85)`;
+        slide.style.opacity = '0.7';
+        slide.style.zIndex = '5';
+        slide.style.filter = 'brightness(0.6)';
+      } else {
+        // بقية الشرائح في الخلف
+        slide.style.transform = `translateX(${offset * 85}%) translateZ(-300px) scale(0.7)`;
+        slide.style.opacity = '0';
+        slide.style.zIndex = '1';
+      }
+    });
+
+    dots.forEach((dot, idx) => {
+      dot.classList.toggle('active', idx === currentOfferIdx);
+    });
+  }
+
+  function openOfferModalBox(off) {
+    currentSelectedOffer = off;
+    document.getElementById('offerModalImg').src = off.img || 'https://res.cloudinary.com/dvzg70krq/image/upload/v1787113384/file_000000007c108243a8f3234e7c5df1db_scgh0e.png';
+    document.getElementById('offerModalTitle').innerText = off.title;
+    document.getElementById('offerModalBadge').innerText = off.badge;
+    document.getElementById('offerModalPriceNew').innerText = off.newPrice > 0 ? formatPrice(off.newPrice) : '';
+    document.getElementById('offerModalPriceOld').innerText = off.oldPrice > 0 ? formatPrice(off.oldPrice) : '';
+    document.getElementById('offerModalDesc').innerText = off.description || off.desc || 'عرض خاص ومميز متوفر لفترة محدودة.';
+    offerModal.classList.add('active');
+  }
+
+  closeOfferModal.addEventListener('click', () => offerModal.classList.remove('active'));
+
+  btnAddOfferToCart.addEventListener('click', () => {
+    if (!currentSelectedOffer) return;
+    
+    const existingIndex = cart.findIndex(item => item.id === `offer-${currentSelectedOffer.id || currentSelectedOffer.title}`);
+    if (existingIndex > -1) {
+      cart[existingIndex].qty += 1;
+    } else {
+      cart.push({
+        id: `offer-${currentSelectedOffer.id || currentSelectedOffer.title}`,
+        name: currentSelectedOffer.title,
+        weight: null,
+        unitPrice: currentSelectedOffer.newPrice || 0,
+        customPriceText: currentSelectedOffer.newPrice === 0 ? 'عرض خاص' : null,
+        qty: 1,
+        note: currentSelectedOffer.badge
+      });
+    }
+
+    saveCart();
+    updateCartUI();
+    offerModal.classList.remove('active');
+    invoiceModal.classList.add('active');
+  });
 
   // بناء شريط الأقسام الرئيسية ديناميكياً
   function renderCategoryNav() {
@@ -1368,7 +1633,7 @@
     });
   });
 
-  // إرسال الطلب للواتساب
+  // إرسال الطلب للواتساب مع التوجيه الزمني
   btnSendWhatsapp.addEventListener('click', () => {
     if (cart.length === 0) {
       alert('الرجاء إضافة منتجات للسلة أولاً');
@@ -1411,13 +1676,15 @@
     msg += `\n\n💰 *المجموع الإجمالي:* ${formatPrice(total)}\n`;
     msg += `✨ شكراً لطلبكم من محمصة النحاس!`;
 
-    const waUrl = `https://wa.me/963991457935?text=${encodeURIComponent(msg)}`;
+    const targetPhone = getActiveWhatsAppNumber();
+    const waUrl = `https://wa.me/${targetPhone}?text=${encodeURIComponent(msg)}`;
     window.open(waUrl, '_blank');
   });
 
   btnConfirmPay.addEventListener('click', () => {
+    const targetPhone = getActiveWhatsAppNumber();
     const msg = `مرحباً محمصة النحاس، قمت بتحويل مبلغ الطلب عبر شام كاش إلى الحساب (SHAM-991457935)، يرجى تأكيد الاستلام وتجهيز الطلب.`;
-    window.open(`https://wa.me/963991457935?text=${encodeURIComponent(msg)}`, '_blank');
+    window.open(`https://wa.me/${targetPhone}?text=${encodeURIComponent(msg)}`, '_blank');
   });
 
   // تشغيل التطبيق
