@@ -220,7 +220,7 @@
         <img id="pPreview" class="img-preview" alt="معاينة">
       </div>
 
-      <button type="submit" id="pSubmitBtn" class="submit-btn">حفظ في جدول غوغل</button>
+      <button type="submit" id="pSubmitBtn" class="submit-btn">حفظ </button>
       <div id="pStatus" class="status"></div>
     </form>
   </div>
@@ -525,7 +525,7 @@
     fd.append('file', file);
     fd.append('upload_preset', UPLOAD_PRESET);
     const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, { method: 'POST', body: fd });
-    if (!res.ok) throw new Error('فشل رفع الصورة إلى Cloudinary');
+    if (!res.ok) throw new Error('فشل رفع الصورة  ');
     const data = await res.json();
     return data.secure_url;
   }
@@ -543,11 +543,11 @@
       let imgUrl = '';
       const file = document.getElementById('pImgFile').files[0];
       if (file) {
-        status.textContent = 'جاري رفع الصورة إلى السحابة... ☁️';
+        status.textContent = 'جاري رفع الصورة  ... ☁️';
         imgUrl = await uploadToCloudinary(file);
       }
 
-      status.textContent = 'جاري تسجيل البيانات في الشيت... 📊';
+      status.textContent = ' جاري الحفظ  ... 📊';
       const payload = {
         pin: currentPin,
         action: currentProductMode === 'add' ? 'addProduct' : 'updateProduct',
