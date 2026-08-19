@@ -1,0 +1,17 @@
+{
+  "name": "إدارة متجر النحاس",
+  "short_name": "إدارة التطبيق",
+  "start_url": "admin.html",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#121212",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://res.cloudinary.com/dvzg70krq/image/upload/v1787113381/file_0000000043b081f4b8be26c2a5eab862_hzdker.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
