@@ -4,6 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>محمصة النحاس | المنيو الرقمي</title>
+
+  <!-- إعدادات تطبيق الويب PWA والأيقونات -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="https://res.cloudinary.com/dvzg70krq/image/upload/v1787113384/file_000000007c108243a8f3234e7c5df1db_scgh0e.png">
+  <meta name="theme-color" content="#2B1810">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <!-- الخطوط الرسمية -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -54,7 +63,7 @@
       position: relative;
     }
 
-    /* Topbar */
+    /* الشريط العلوي */
     .topbar {
       position: sticky;
       top: 0;
@@ -73,8 +82,11 @@
       gap: 10px;
     }
     .brand-logo {
-      width: 42px;
-      height: 42px;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      border: 1px solid var(--gold);
+      object-fit: cover;
     }
     .name-ar {
       font-family: 'Cairo', sans-serif;
@@ -93,24 +105,11 @@
       align-items: center;
       gap: 8px;
     }
-    .btn-topbar-ads {
-      background: rgba(201, 162, 39, 0.15);
-      color: var(--gold-light);
-      border: 1px solid var(--gold);
-      padding: 6px 10px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-    }
     .btn-call {
       background: var(--gold);
       color: var(--espresso);
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -118,7 +117,7 @@
       text-decoration: none;
     }
 
-    /* Hero / Offers */
+    /* سلايدر العروض */
     .hero-wrap {
       padding: 16px 14px 8px;
       background: linear-gradient(180deg, var(--espresso) 0%, var(--cream-soft) 100%);
@@ -141,7 +140,7 @@
     }
     .offers-scroller::-webkit-scrollbar { display: none; }
     .offer-card {
-      flex: 0 0 85%;
+      flex: 0 0 88%;
       scroll-snap-align: center;
       background: var(--surface);
       border-radius: var(--radius-md);
@@ -153,7 +152,7 @@
     }
     .offer-img {
       width: 100%;
-      height: 120px;
+      height: 130px;
       object-fit: cover;
     }
     .offer-card-body {
@@ -175,25 +174,13 @@
       font-weight: 700;
       color: var(--espresso);
     }
-    .offer-prices {
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
-      margin-top: 4px;
-    }
-    .offer-price-new {
-      font-family: 'Cairo', sans-serif;
-      font-size: 1.1rem;
-      font-weight: 900;
-      color: var(--burgundy);
-    }
-    .offer-price-old {
+    .offer-desc {
       font-size: 0.8rem;
       color: var(--ink-muted);
-      text-decoration: line-through;
+      margin-top: 2px;
     }
 
-    /* Search & Filters */
+    /* البحث والتصنيفات */
     .search-box {
       padding: 8px 14px 4px;
     }
@@ -223,10 +210,9 @@
       pointer-events: none;
     }
 
-    /* Category Nav */
     .catnav-wrap {
       position: sticky;
-      top: 66px;
+      top: 64px;
       z-index: 90;
       background: var(--cream);
       padding: 8px 10px;
@@ -259,7 +245,6 @@
       border-color: var(--espresso);
     }
 
-    /* Subcategory Chips */
     .subcat-wrap {
       display: flex;
       gap: 6px;
@@ -286,9 +271,10 @@
       font-weight: 700;
     }
 
-    /* Products Grid */
+    /* شبكة المنتجات */
     .grid-container {
       padding: 10px 14px 30px;
+      min-height: 350px;
     }
     .pgrid {
       display: grid;
@@ -380,8 +366,6 @@
       margin-bottom: 6px;
       display: block;
     }
-    
-    /* Product Custom Note Input */
     .pcard-note-input {
       width: 100%;
       padding: 6px 8px;
@@ -464,7 +448,7 @@
       cursor: not-allowed;
     }
 
-    /* Floating Cart Bubble */
+    /* سلة الفاتورة العائمة */
     .cart-bubble {
       position: fixed;
       bottom: 20px;
@@ -508,7 +492,7 @@
       color: var(--gold-light);
     }
 
-    /* Modal Overlays */
+    /* النوافذ المنبثقة */
     .overlay {
       position: fixed;
       inset: 0;
@@ -562,7 +546,6 @@
       cursor: pointer;
     }
 
-    /* Invoice Elements */
     .inv-list {
       margin-bottom: 14px;
       max-height: 230px;
@@ -712,7 +695,6 @@
       gap: 8px;
     }
 
-    /* Payment Modal */
     .pay-code-box {
       background: var(--cream);
       border: 2px dashed var(--gold);
@@ -749,7 +731,25 @@
       border: 1px solid var(--border);
     }
 
-    /* Footer */
+    .loading-state {
+      grid-column: span 2;
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--espresso);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .spinner {
+      width: 38px;
+      height: 38px;
+      border: 4px solid var(--border);
+      border-top: 4px solid var(--gold);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 12px;
+    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
     footer {
       background: var(--espresso);
       color: var(--cream);
@@ -782,58 +782,29 @@
 
 <div class="app-shell">
 
-  <!-- Top Bar -->
+  <!-- الشريط العلوي -->
   <header class="topbar">
     <div class="brandmark">
-      <svg class="brand-logo" viewBox="0 0 64 64" fill="none">
-        <circle cx="32" cy="32" r="31" fill="#2B1810" stroke="#C9A227" stroke-width="1.8"/>
-        <path d="M20 30h20a2 2 0 012 2v3c0 6-4.5 11-11 11s-11-5-11-11v-3a2 2 0 012-2z" stroke="#D9A066" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-        <path d="M42 32h2.5a3.5 3.5 0 010 7H42" stroke="#D9A066" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-        <path d="M24 21c-1.5 2-1.5 3 0 5M29 21c-1.5 2-1.5 3 0 5M34 21c-1.5 2-1.5 3 0 5" stroke="#C9A227" stroke-width="1.8" stroke-linecap="round"/>
-      </svg>
+      <img class="brand-logo" src="https://res.cloudinary.com/dvzg70krq/image/upload/v1787113384/file_000000007c108243a8f3234e7c5df1db_scgh0e.png" alt="شعار المحمصة">
       <div>
         <div class="name-ar">محمصة النحاس</div>
         <div class="name-sub">ROASTERY & GIFTS</div>
       </div>
     </div>
     <div class="topbar-actions">
-      <a class="btn-topbar-ads" href="#partners">📣 إعلانات</a>
-      <a class="btn-call" href="tel:00963991457935" aria-label="اتصال">
+      <a class="btn-call" href="tel:00963991457935" aria-label="اتصال مباشر">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
       </a>
     </div>
   </header>
 
-  <!-- Hero Special Offers -->
-  <section class="hero-wrap">
+  <!-- سلايدر العروض التفاعلي من الشيت -->
+  <section class="hero-wrap" id="heroSection" style="display: none;">
     <div class="hero-title">✨ عروض خاصة وحصرية ✨</div>
-    <div class="offers-scroller">
-      <div class="offer-card">
-        <img class="offer-img" src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&q=80" alt="بكج السهرة">
-        <div class="offer-card-body">
-          <span class="offer-badge">توفير 25%</span>
-          <h3 class="offer-title">بكج السهرة الملوكي الذهبي</h3>
-          <div class="offer-prices">
-            <span class="offer-price-new">90,000 ل.س</span>
-            <span class="offer-price-old">120,000 ل.س</span>
-          </div>
-        </div>
-      </div>
-      <div class="offer-card">
-        <img class="offer-img" src="https://images.unsplash.com/photo-1509785307050-d4066910ec1e?w=600&q=80" alt="عرض القهوة">
-        <div class="offer-card-body">
-          <span class="offer-badge">الأكثر طلباً</span>
-          <h3 class="offer-title">عرض عشاق القهوة المختصة والهيل</h3>
-          <div class="offer-prices">
-            <span class="offer-price-new">68,000 ل.س</span>
-            <span class="offer-price-old">85,000 ل.س</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="offers-scroller" id="offersScroller"></div>
   </section>
 
-  <!-- Search Input -->
+  <!-- صندوق البحث السريع -->
   <div class="search-box">
     <div class="search-input-wrap">
       <input type="text" class="search-input" id="searchInput" placeholder="ابحث عن قهوة، مكسرات، بسكويت، عصائر...">
@@ -841,45 +812,41 @@
     </div>
   </div>
 
-  <!-- Category Nav -->
+  <!-- شريط الأقسام الرئيسية -->
   <nav class="catnav-wrap">
     <div class="catnav" id="categoryNav">
       <button class="cat-btn active" data-cat="all">🌟 الكل</button>
-      <button class="cat-btn" data-cat="coffee">☕ القهوة والمشروبات الساخنة</button>
-      <button class="cat-btn" data-cat="nuts">🥜 الموالح والمكسرات</button>
-      <button class="cat-btn" data-cat="sweets">🍬 الحلويات والسكاكر</button>
-      <button class="cat-btn" data-cat="biscuits">🍪 البسكويت والكيك والشوكولا</button>
-      <button class="cat-btn" data-cat="chips">🍟 الشيبس والسناكس</button>
-      <button class="cat-btn" data-cat="drinks">🥤 المشروبات والعصائر</button>
-      <button class="cat-btn" data-cat="icecream">🍨 البوظة والسلاش</button>
-      <button class="cat-btn" data-cat="honey">🍯 العسل والتمور</button>
-      <button class="cat-btn" data-cat="misc">📦 متفرقات</button>
     </div>
   </nav>
 
-  <!-- Subcategories Container -->
+  <!-- شريط الأقسام الفرعية -->
   <div class="subcat-wrap" id="subcatContainer"></div>
 
-  <!-- Products Grid -->
+  <!-- شبكة عرض المنتجات -->
   <main class="grid-container">
-    <div class="pgrid" id="productsGrid"></div>
+    <div class="pgrid" id="productsGrid">
+      <div class="loading-state">
+        <div class="spinner"></div>
+        جاري جلب أحدث قائمة ومنتجات...
+      </div>
+    </div>
   </main>
 
-  <!-- Footer -->
+  <!-- الفوتر -->
   <footer>
-    <div class="flogo"><div class="name-ar">محمصة النحاس</div></div>
+    <div class="flogo"><div class="name-ar">محمصة وموالح النحاس</div></div>
     <div class="contact-line">
       <a href="https://maps.app.goo.gl/KJxXjAUhrG2TyKcy9" target="_blank">📍 موقعنا على الخريطة (انقر للوصول)</a>
     </div>
     <div class="contact-line">
       <a href="tel:00963991457935" dir="ltr">📞 00963991457935</a>
     </div>
-    <p style="font-size:0.75rem; color:var(--gold-bronze); margin-top:10px;">جميع الحقوق محفوظة © محمصة النحاس</p>
+    <p style="font-size:0.75rem; color:var(--gold-bronze); margin-top:10px;">جميع الحقوق محفوظة © محمصة وموالح النحاس</p>
   </footer>
 
 </div>
 
-<!-- Floating Cart Bubble -->
+<!-- زر الفاتورة العائم -->
 <div class="cart-bubble" id="cartBubble">
   <div class="cart-bubble-title">
     <span>🧾 الفاتورة</span>
@@ -888,7 +855,7 @@
   <span class="cart-total-badge" id="cartTotal">0 ل.س</span>
 </div>
 
-<!-- Invoice Modal -->
+<!-- نافذة الفاتورة والطلب -->
 <div class="overlay" id="invoiceModal">
   <div class="modal">
     <div class="modal-header">
@@ -925,7 +892,7 @@
 
     <div class="inv-input-box">
       <label>ملاحظات عامة على الطلب</label>
-      <textarea id="custNotes" placeholder="موعد الاستلام المفضل، تفاصيل عامة..."></textarea>
+      <textarea id="custNotes" placeholder="موعد الاستلام المفضل، تفاصيل إضافية..."></textarea>
     </div>
 
     <button type="button" class="btn-wa-action" id="btnSendWhatsapp">
@@ -937,7 +904,7 @@
   </div>
 </div>
 
-<!-- Payment Modal -->
+<!-- نافذة الدفع شام كاش -->
 <div class="overlay" id="payModal">
   <div class="modal">
     <div class="modal-header">
@@ -958,304 +925,80 @@
   </div>
 </div>
 
+<!-- شريط تثبيت التطبيق الذكي (PWA Install Banner) -->
+<div id="pwaInstallBanner" style="display:none; position:fixed; top:12px; left:50%; transform:translateX(-50%); width:calc(100% - 24px); max-width:540px; background:var(--espresso); border:1px solid var(--gold); border-radius:14px; padding:10px 14px; z-index:9999; box-shadow:0 8px 25px rgba(0,0,0,0.35); align-items:center; justify-content:space-between; gap:10px; color:#fff;">
+  <div style="display:flex; align-items:center; gap:10px;">
+    <img src="https://res.cloudinary.com/dvzg70krq/image/upload/v1787113384/file_000000007c108243a8f3234e7c5df1db_scgh0e.png" style="width:38px; height:38px; border-radius:8px; border:1px solid var(--gold);" alt="أيقونة التطبيق">
+    <div>
+      <div style="font-family:'Cairo'; font-weight:800; font-size:0.88rem; color:var(--gold);">تثبيت تطبيق محمصة النحاس</div>
+      <div style="font-size:0.72rem; color:#ddd;">لتصفح أسرع وإمكانية الطلب بلمسة واحدة</div>
+    </div>
+  </div>
+  <div style="display:flex; gap:6px; align-items:center;">
+    <button id="pwaInstallBtn" style="background:var(--gold); color:#000; border:none; padding:7px 14px; border-radius:8px; font-weight:bold; font-size:0.8rem; cursor:pointer;">تثبيت</button>
+    <button onclick="document.getElementById('pwaInstallBanner').style.display='none'" style="background:transparent; border:none; color:#aaa; font-size:1.1rem; cursor:pointer; padding:0 4px;">✕</button>
+  </div>
+</div>
+
 <script>
-  // Complete Products Database with Real Photos
-  const products = [
-    // --- 1. القهوة والمشروبات الساخنة ---
-    { id: 'c1', name: 'قهوة حلوة برازيلي نوع أول (إكسترا)', price: 190000, category: 'coffee', subcat: 'قهوة مطحونة', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=450&q=80', placeholder: 'مثلاً: ثلثين أشقر وثلث غامق، ناعمة...' },
-    { id: 'c2', name: 'قهوة حلوة برازيلي نوع أول (عادي)', price: 170000, category: 'coffee', subcat: 'قهوة مطحونة', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1587734195503-904fca47e0e9?w=450&q=80', placeholder: 'مثلاً: نص بنص، طحن وسط...' },
-    { id: 'c3', name: 'قهوة حلوة برازيلي نوع أول (بدون هيل)', price: 140000, category: 'coffee', subcat: 'قهوة مطحونة', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?w=450&q=80', placeholder: 'درجة التحميص، خشنة أو ناعمة...' },
-    { id: 'c4', name: 'قهوة مرة عربي كولمبي (بدون هيل)', price: 220000, category: 'coffee', subcat: 'قهوة مطحونة', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1509785307050-d4066910ec1e?w=450&q=80', placeholder: 'طحن خشن للغلي، درجة الشقار...' },
-    { id: 'c5', name: 'قهوة سريعة التحضير بالكيلو', price: 140000, category: 'coffee', subcat: 'قهوة مطحونة', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1518832553480-cd0e625ed3e6?w=450&q=80', placeholder: 'ملاحظة خاصة بالتحضير...' },
-    
-    { id: 'c6', name: 'هيل أمريكي نوع أول (كيلو)', price: 850000, category: 'coffee', subcat: 'هيل', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=450&q=80', placeholder: 'حب كامل أو مطحون ناعم...' },
-    { id: 'c7', name: 'هيل هندي وارد الإمارات (كيلو)', price: 750000, category: 'coffee', subcat: 'هيل', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=450&q=80', placeholder: 'حب كامل أو طحن...' },
-    { id: 'c8', name: 'هيل هندي (كيلو)', price: 550000, category: 'coffee', subcat: 'هيل', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=450&q=80', placeholder: 'حب كامل أو طحن...' },
-    
-    { id: 'c9', name: 'بن الحموي هيل إكسترا 1 كغ', price: 210000, category: 'coffee', subcat: 'بن معبأ وماركات', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'c10', name: 'بن الحموي هيل إكسترا 500 غ', price: 110000, category: 'coffee', subcat: 'بن معبأ وماركات', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'c11', name: 'بن الحموي هيل إكسترا 200 غ', price: 44000, category: 'coffee', subcat: 'بن معبأ وماركات', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'c12', name: 'بن الحموي هيل إكسترا 100 غ', price: 22000, category: 'coffee', subcat: 'بن معبأ وماركات', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'c13', name: 'بن الحموي هيل إكسترا ظرف طبخة', price: 7000, category: 'coffee', subcat: 'بن معبأ وماركات', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'c14', name: 'بن الحموي هيل عادي 500 غ', price: 100000, category: 'coffee', subcat: 'بن معبأ وماركات', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'c15', name: 'بن الحموي هيل عادي 200 غ', price: 40000, category: 'coffee', subcat: 'بن معبأ وماركات', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'c16', name: 'بن الحموي سادة سريعة ظرف', price: 15000, category: 'coffee', subcat: 'بن معبأ وماركات', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'c17', name: 'بن الشامي نصف كيلو', price: 110000, category: 'coffee', subcat: 'بن معبأ وماركات', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1587734195503-904fca47e0e9?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'c18', name: 'بن السمان علب', price: 135000, category: 'coffee', subcat: 'بن معبأ وماركات', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1587734195503-904fca47e0e9?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'c19', name: 'بن السمان ظرف', price: 17000, category: 'coffee', subcat: 'بن معبأ وماركات', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1587734195503-904fca47e0e9?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'c20', name: 'بن الزعبي سادة ظرف', price: 10000, category: 'coffee', subcat: 'بن معبأ وماركات', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1587734195503-904fca47e0e9?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'c21', name: 'هاي هيل إكسترا ظرف', price: 10000, category: 'coffee', subcat: 'بن معبأ وماركات', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=450&q=80', placeholder: 'ملاحظات...' },
+  // تفعيل خدمة الـ PWA
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+  }
 
-    { id: 'c22', name: 'نسكافيه ظرف (كيس كامل)', price: 85000, category: 'coffee', subcat: 'مشروبات ساخنة وبودرة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'c23', name: 'كابتشينو توربيكانا كيس', price: 65000, category: 'coffee', subcat: 'مشروبات ساخنة وبودرة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'c24', name: 'سيتي كافيه علبة', price: 22000, category: 'coffee', subcat: 'مشروبات ساخنة وبودرة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'c25', name: 'سيتي كافيه مع هيل علبة', price: 22000, category: 'coffee', subcat: 'مشروبات ساخنة وبودرة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'c26', name: 'سيتي كافيه غولد علبة', price: 20000, category: 'coffee', subcat: 'مشروبات ساخنة وبودرة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'c27', name: 'كوفي ميت مبيض كيس 500غ', price: 40000, category: 'coffee', subcat: 'مشروبات ساخنة وبودرة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1528750997573-59b89d56f4f7?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'c28', name: 'قهوة فرنسية (كيلو)', price: 85000, category: 'coffee', subcat: 'مشروبات ساخنة وبودرة', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?w=450&q=80', placeholder: 'مع أو بدون بندق/حليب...' },
-    { id: 'c29', name: 'كاكاو خشن (كيلو)', price: 75000, category: 'coffee', subcat: 'مشروبات ساخنة وبودرة', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'c30', name: 'ميلو ناعم (كيلو)', price: 75000, category: 'coffee', subcat: 'مشروبات ساخنة وبودرة', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'c31', name: 'غولد فرط (كيلو)', price: 350000, category: 'coffee', subcat: 'مشروبات ساخنة وبودرة', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'c32', name: 'نسكافيه حلو فرط', price: 85000, category: 'coffee', subcat: 'مشروبات ساخنة وبودرة', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'c33', name: 'سحلب فاخر', price: 75000, category: 'coffee', subcat: 'مشروبات ساخنة وبودرة', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=450&q=80', placeholder: 'إضافة قرفة، مستكة...' },
-    { id: 'c34', name: 'سحلب وقرفة', price: 75000, category: 'coffee', subcat: 'مشروبات ساخنة وبودرة', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'c35', name: 'كابتشينو فرط', price: 75000, category: 'coffee', subcat: 'مشروبات ساخنة وبودرة', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'c36', name: 'كابتشينو دايت', price: 95000, category: 'coffee', subcat: 'مشروبات ساخنة وبودرة', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'c37', name: 'حليب بودرة فرط', price: 65000, category: 'coffee', subcat: 'مشروبات ساخنة وبودرة', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1528750997573-59b89d56f4f7?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'c38', name: 'كاكاو خام مر بودرة', price: 190000, category: 'coffee', subcat: 'مشروبات ساخنة وبودرة', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?w=450&q=80', placeholder: 'ملاحظات...' },
+  let deferredPrompt;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    const banner = document.getElementById('pwaInstallBanner');
+    if (banner) banner.style.display = 'flex';
+  });
 
-    // --- 2. الموالح والمكسرات والبزورات ---
-    { id: 'n1', name: 'خلطة عرسان النحاس الفاخرة', price: 110000, category: 'nuts', subcat: 'خلطات خاصة ومكسرات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1536591375315-1b836835527b?w=450&q=80', placeholder: 'محمصة زيادة، ملح خفيف/وسط...' },
-    { id: 'n2', name: 'خلطة سهرات خاصة', price: 130000, category: 'nuts', subcat: 'خلطات خاصة ومكسرات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1536591375315-1b836835527b?w=450&q=80', placeholder: 'نسبة المكسرات، الملح...' },
-    { id: 'n3', name: 'مكسرات سادة فاخرة', price: 185000, category: 'nuts', subcat: 'خلطات خاصة ومكسرات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1536591375315-1b836835527b?w=450&q=80', placeholder: 'نيئة أو محمصة سادة...' },
-    { id: 'n4', name: 'مكسرات مدخنة ملكية', price: 220000, category: 'nuts', subcat: 'خلطات خاصة ومكسرات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1536591375315-1b836835527b?w=450&q=80', placeholder: 'تدخين حار أو عادي...' },
-    { id: 'n5', name: 'موالح مشكلة', price: 60000, category: 'nuts', subcat: 'خلطات خاصة ومكسرات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1536591375315-1b836835527b?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'n6', name: 'كاجو محمص فاخر', price: 195000, category: 'nuts', subcat: 'خلطات خاصة ومكسرات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?w=450&q=80', placeholder: 'ملح خفيف، محمص...' },
-    { id: 'n7', name: 'فستق حلبي محمص بالملح', price: 210000, category: 'nuts', subcat: 'خلطات خاصة ومكسرات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1627916607164-7b20241db935?w=450&q=80', placeholder: 'مفتوح كامل، ملح خفيف...' },
-    { id: 'n8', name: 'لوز محمص مقرمش', price: 175000, category: 'nuts', subcat: 'خلطات خاصة ومكسرات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1508061253366-f7da158b6d46?w=450&q=80', placeholder: 'مدخن أو مملح...' },
-    { id: 'n9', name: 'جوز بلدي فاخر', price: 100000, category: 'nuts', subcat: 'خلطات خاصة ومكسرات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=450&q=80', placeholder: 'أنصاف حبات، إكسترا...' },
-    { id: 'n10', name: 'بندق محمص', price: 0, category: 'nuts', subcat: 'خلطات خاصة ومكسرات', isWeight: true, available: false, img: 'https://images.unsplash.com/photo-1563227812-0ea4c22e6cc8?w=450&q=80', placeholder: 'غير متوفر حالياً' },
-    { id: 'n11', name: 'مكداميا فاخرة', price: 0, category: 'nuts', subcat: 'خلطات خاصة ومكسرات', isWeight: true, available: false, img: 'https://images.unsplash.com/photo-1536591375315-1b836835527b?w=450&q=80', placeholder: 'غير متوفر حالياً' },
+  const installBtn = document.getElementById('pwaInstallBtn');
+  if (installBtn) {
+    installBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          document.getElementById('pwaInstallBanner').style.display = 'none';
+        }
+        deferredPrompt = null;
+      }
+    });
+  }
 
-    { id: 'n12', name: 'ذرة محمصة مقرمشة', price: 40000, category: 'nuts', subcat: 'كراكرز وموالح', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1579619569763-1f9b8326b7ad?w=450&q=80', placeholder: 'نكهة خاصة، ملح...' },
-    { id: 'n13', name: 'قضامة صفرا بلدي', price: 60000, category: 'nuts', subcat: 'كراكرز وموالح', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1590779033100-9f60a05a013d?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'n14', name: 'قضامة مدخنة', price: 60000, category: 'nuts', subcat: 'كراكرز وموالح', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1590779033100-9f60a05a013d?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'n15', name: 'قضامة مالحة مقرمشة', price: 40000, category: 'nuts', subcat: 'كراكرز وموالح', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1590779033100-9f60a05a013d?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'n16', name: 'قضامة حلوة (سكر)', price: 45000, category: 'nuts', subcat: 'كراكرز وموالح', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1590779033100-9f60a05a013d?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'n17', name: 'كرات كراكرز بالكاتشب', price: 50000, category: 'nuts', subcat: 'كراكرز وموالح', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'n18', name: 'كرات كراكرز بالجبنة', price: 50000, category: 'nuts', subcat: 'كراكرز وموالح', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'n19', name: 'كرات كراكرز مشكل نكهات', price: 50000, category: 'nuts', subcat: 'كراكرز وموالح', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'n20', name: 'فستق مدخن حلو', price: 65000, category: 'nuts', subcat: 'كراكرز وموالح', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1567406893414-76b7b1e5a7a5?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'n21', name: 'فستق مدخن مالح', price: 65000, category: 'nuts', subcat: 'كراكرز وموالح', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1567406893414-76b7b1e5a7a5?w=450&q=80', placeholder: 'ملاحظات...' },
+  // الرابط الحي للسيرفر
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyEWgcYs1dV3hKP9Qivx3gOOJlCgUBEKibqeNUfQ7c-z0XOwxrgwfqhOt_isoe4K_Wv/exec";
 
-    { id: 'n22', name: 'بزر أبيض عريض محمص', price: 65000, category: 'nuts', subcat: 'بزورات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=450&q=80', placeholder: 'ملح وسط / خفيف...' },
-    { id: 'n23', name: 'بزر أبيض كوسا لسان الطير', price: 65000, category: 'nuts', subcat: 'بزورات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'n24', name: 'بزر كوسا مدخن', price: 65000, category: 'nuts', subcat: 'بزورات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'n25', name: 'بزر كوسا صفرا', price: 65000, category: 'nuts', subcat: 'بزورات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1599940824399-b87987ceb72a?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'n26', name: 'بزر إيراني أسود عريض', price: 75000, category: 'nuts', subcat: 'بزورات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=450&q=80', placeholder: 'محمص زيادة...' },
-    { id: 'n27', name: 'بزر إيراني أحمر مقرمش', price: 75000, category: 'nuts', subcat: 'بزورات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'n28', name: 'بزر أسود بلدي', price: 50000, category: 'nuts', subcat: 'بزورات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'n29', name: 'بزر مصري', price: 40000, category: 'nuts', subcat: 'بزورات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'n30', name: 'بزر نمس مقرمش', price: 35000, category: 'nuts', subcat: 'بزورات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'n31', name: 'بزر دوار الشمس مالح', price: 55000, category: 'nuts', subcat: 'بزورات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'n32', name: 'بزر دوار الشمس ملح خفيف', price: 65000, category: 'nuts', subcat: 'بزورات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'n33', name: 'مكسرات يابانية (جميع الأصناف)', price: 75000, category: 'nuts', subcat: 'بزورات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=450&q=80', placeholder: 'تشكيلة حارة / عادية...' },
+  const categoryIcons = {
+    'القهوة والمشروبات الساخنة': '☕',
+    'الموالح والمكسرات': '🥜',
+    'الحلويات والسكاكر': '🍬',
+    'العسل والتمور': '🍯',
+    'البسكويت والكيك والشوكولا': '🍪',
+    'الشيبس والسناكس': '🍟',
+    'البوظة والسلاش': '🍨',
+    'المشروبات والعصائر': '🥤',
+    'متفرقات': '📦'
+  };
 
-    // --- 3. الحلويات والسكاكر ---
-    { id: 's1', name: 'سنيكرز ميني ضيافة بالكيلو', price: 200000, category: 'sweets', subcat: 'شوكولا وضيافة', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's2', name: 'تويكس ميني ضيافة بالكيلو', price: 200000, category: 'sweets', subcat: 'شوكولا وضيافة', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's3', name: 'باونتي ميني ضيافة بالكيلو', price: 200000, category: 'sweets', subcat: 'شوكولا وضيافة', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's4', name: 'مارس ميني ضيافة بالكيلو', price: 200000, category: 'sweets', subcat: 'شوكولا وضيافة', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's5', name: 'دراجيه حلويات فاخرة', price: 480000, category: 'sweets', subcat: 'شوكولا وضيافة', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=450&q=80', placeholder: 'ألوان / نكهات مفضلة...' },
-    { id: 's6', name: 'شوكولا قطع للمناسبات', price: 140000, category: 'sweets', subcat: 'شوكولا وضيافة', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=450&q=80', placeholder: 'تغليف مناسبات...' },
-    
-    { id: 's7', name: 'ديفا توفي شوكولا (كيلو)', price: 80000, category: 'sweets', subcat: 'توفي ومصاص', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's8', name: 'ديفا توفي فواكه (كيلو)', price: 50000, category: 'sweets', subcat: 'توفي ومصاص', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's9', name: 'ديفا مصاص نعنع (كيلو)', price: 60000, category: 'sweets', subcat: 'توفي ومصاص', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1575224300306-1b8da36134ce?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's10', name: 'ديفا مصاص شوكولا (كيلو)', price: 60000, category: 'sweets', subcat: 'توفي ومصاص', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1575224300306-1b8da36134ce?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's11', name: 'ديفا مصاص حليب (كيلو)', price: 60000, category: 'sweets', subcat: 'توفي ومصاص', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1575224300306-1b8da36134ce?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's12', name: 'ديفا مصاص كابتشينو (كيلو)', price: 60000, category: 'sweets', subcat: 'توفي ومصاص', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1575224300306-1b8da36134ce?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's13', name: 'ديفا مصاص قهوة (كيلو)', price: 60000, category: 'sweets', subcat: 'توفي ومصاص', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1575224300306-1b8da36134ce?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's14', name: 'ديفا مصاص فريز (كيلو)', price: 60000, category: 'sweets', subcat: 'توفي ومصاص', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1575224300306-1b8da36134ce?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's15', name: 'روشن أوكراني حشوة نستله', price: 90000, category: 'sweets', subcat: 'توفي ومصاص', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's16', name: 'روشن أوكراني حشوة فواكه', price: 70000, category: 'sweets', subcat: 'توفي ومصاص', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's17', name: 'روشن أوكراني سكاكر النحلة', price: 70000, category: 'sweets', subcat: 'توفي ومصاص', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's18', name: 'روشن أوكراني توفاني', price: 100000, category: 'sweets', subcat: 'توفي ومصاص', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's19', name: 'روشن أوكراني كانافيتو', price: 100000, category: 'sweets', subcat: 'توفي ومصاص', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's20', name: 'أوفال فواكه', price: 45000, category: 'sweets', subcat: 'توفي ومصاص', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's21', name: 'أوفال شوكولا', price: 45000, category: 'sweets', subcat: 'توفي ومصاص', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's22', name: 'أوفال كراميلا', price: 45000, category: 'sweets', subcat: 'توفي ومصاص', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's23', name: 'توفي مشكل فاخر', price: 75000, category: 'sweets', subcat: 'توفي ومصاص', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's24', name: 'مصاص فواكه مشكل', price: 65000, category: 'sweets', subcat: 'توفي ومصاص', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1575224300306-1b8da36134ce?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's25', name: 'مصاص مشكل منوع', price: 65000, category: 'sweets', subcat: 'توفي ومصاص', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1575224300306-1b8da36134ce?w=450&q=80', placeholder: 'ملاحظات...' },
-
-    { id: 's26', name: 'مارسي أو سميري', price: 65000, category: 'sweets', subcat: 'ملبس ومسليات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's27', name: 'سكاكر أحجار البحر', price: 65000, category: 'sweets', subcat: 'ملبس ومسليات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's28', name: 'ملبس لوز فاخر', price: 100000, category: 'sweets', subcat: 'ملبس ومسليات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=450&q=80', placeholder: 'أبيض / ملون...' },
-    { id: 's29', name: 'ملبس شوكولا', price: 85000, category: 'sweets', subcat: 'ملبس ومسليات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's30', name: 'ملبس بيبي بناتي (زهري)', price: 85000, category: 'sweets', subcat: 'ملبس ومسليات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's31', name: 'ملبس بيبي ولادي (أزرق)', price: 85000, category: 'sweets', subcat: 'ملبس ومسليات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's32', name: 'قباقب سكاكر', price: 40000, category: 'sweets', subcat: 'ملبس ومسليات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's33', name: 'سكاكر زيتون أسود', price: 65000, category: 'sweets', subcat: 'ملبس ومسليات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's34', name: 'سوس كاندي جيليه', price: 65000, category: 'sweets', subcat: 'ملبس ومسليات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=450&q=80', placeholder: 'حامض أو حلو...' },
-    { id: 's35', name: 'مارشميلو طري ملون', price: 85000, category: 'sweets', subcat: 'ملبس ومسليات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 's36', name: 'راحة سادة / معطرة (كيلو)', price: 15000, category: 'sweets', subcat: 'ملبس ومسليات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=450&q=80', placeholder: 'ورد، مستكة، جوز هند...' },
-
-    // --- 4. البسكويت والكيك وشوكولا الدهن ---
-    { id: 'b1', name: 'كرواسان شوكولا طازج', price: 7000, category: 'biscuits', subcat: 'بالقطعة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=450&q=80', placeholder: 'تسخين أو تجهيز خاص...' },
-    { id: 'b2', name: 'كرواسان جبنة طازج', price: 7000, category: 'biscuits', subcat: 'بالقطعة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b3', name: 'كيندر بوينو', price: 12000, category: 'biscuits', subcat: 'بالقطعة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b4', name: 'كيندر ديليسي', price: 8000, category: 'biscuits', subcat: 'بالقطعة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b5', name: 'كيندر كاونتري', price: 8000, category: 'biscuits', subcat: 'بالقطعة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b6', name: 'كيندر كاردز', price: 8000, category: 'biscuits', subcat: 'بالقطعة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b7', name: 'كيندر أصابع', price: 15000, category: 'biscuits', subcat: 'بالقطعة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b8', name: 'ميلكا لوح شوكولا', price: 20000, category: 'biscuits', subcat: 'بالقطعة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=450&q=80', placeholder: 'نكهة محددة إن توفرت...' },
-    { id: 'b9', name: 'مالتيزرز كيس', price: 13000, category: 'biscuits', subcat: 'بالقطعة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b10', name: 'إم آند إمز', price: 13000, category: 'biscuits', subcat: 'بالقطعة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?w=450&q=80', placeholder: 'فول سوداني / شوكولا...' },
-    { id: 'b11', name: 'كت كات 4 أصابع', price: 10000, category: 'biscuits', subcat: 'بالقطعة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b12', name: 'كت كات إصبعين', price: 6000, category: 'biscuits', subcat: 'بالقطعة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b13', name: 'تويكس حبة', price: 10000, category: 'biscuits', subcat: 'بالقطعة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b14', name: 'سنيكرز حبة', price: 10000, category: 'biscuits', subcat: 'بالقطعة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b15', name: 'مارس حبة', price: 10000, category: 'biscuits', subcat: 'بالقطعة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b16', name: 'باونتي حبة', price: 10000, category: 'biscuits', subcat: 'بالقطعة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b17', name: 'جالاكسي حبة', price: 15000, category: 'biscuits', subcat: 'بالقطعة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=450&q=80', placeholder: 'سادة أو كراميل...' },
-    { id: 'b18', name: 'بسكوت لوتس بسك أوف (لفة)', price: 35000, category: 'biscuits', subcat: 'بالقطعة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b19', name: 'بسكوت لوتس بسك أوف (مربعة)', price: 25000, category: 'biscuits', subcat: 'بالقطعة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b20', name: 'سانتيفير نخالة لفة', price: 50000, category: 'biscuits', subcat: 'بالقطعة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b21', name: 'تريتو نخالة لفة', price: 8000, category: 'biscuits', subcat: 'بالقطعة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b22', name: 'غوفر محشي شوكولا', price: 7000, category: 'biscuits', subcat: 'بالقطعة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=450&q=80', placeholder: 'ملاحظات...' },
-
-    { id: 'b23', name: 'علبة كت كات 4 أصابع', price: 220000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b24', name: 'علبة كت كات إصبعين', price: 180000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b25', name: 'علبة تويكس', price: 220000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b26', name: 'علبة مارس', price: 220000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b27', name: 'علبة سنيكرز', price: 220000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b28', name: 'علبة باونتي', price: 220000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b29', name: 'علبة جالاكسي', price: 140000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b30', name: 'علبة كيندر', price: 220000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b31', name: 'بريك ريزو', price: 42000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b32', name: 'بريك تايم', price: 42000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b33', name: 'بريك إصبعين', price: 42000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b34', name: 'بريك سوبا', price: 42000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b35', name: 'بريك مدور', price: 42000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b36', name: 'شوكولا فيوري', price: 43000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b37', name: 'يونيكرز', price: 42000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b38', name: 'ماكسي كيك', price: 55000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b39', name: 'تريليون لوز', price: 55000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b40', name: 'بسكوت أوريو علبة', price: 40000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b41', name: 'دايجستف أورجينال', price: 15000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b42', name: 'رولانا شوكولا', price: 33000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b43', name: 'رولانا حليب', price: 33000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b44', name: 'بسكوت جنتي', price: 22000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b45', name: 'بركات شوكولا', price: 33000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b46', name: 'بركات حليب', price: 33000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b47', name: 'بركات شوكولا دبي (كنافة وبستاشيو)', price: 44000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b48', name: 'مستر بت شوكولا', price: 85000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b49', name: 'مستر بت جوز هند', price: 85000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b50', name: 'مستر بت حليب', price: 85000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b51', name: 'مستر بت بندق', price: 85000, category: 'biscuits', subcat: 'بالعلبة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b52', name: 'بسكويت محشي فرط بالكيلو', price: 65000, category: 'biscuits', subcat: 'بسكويت فرط', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=450&q=80', placeholder: 'نكهة محشية مفضلة...' },
-    { id: 'b53', name: 'بسكوت سادة (للشاي) بالكيلو', price: 30000, category: 'biscuits', subcat: 'بسكويت فرط', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?w=450&q=80', placeholder: 'ملاحظات...' },
-
-    { id: 'b54', name: 'نوتيلا أصلي 1 كغ', price: 150000, category: 'biscuits', subcat: 'شوكولا الدهن', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1553456558-aff63285bdd1?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b55', name: 'نوتيلا أصلي 750 غ', price: 110000, category: 'biscuits', subcat: 'شوكولا الدهن', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1553456558-aff63285bdd1?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b56', name: 'نوتيلا أصلي 630 غ', price: 100000, category: 'biscuits', subcat: 'شوكولا الدهن', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1553456558-aff63285bdd1?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b57', name: 'نوتيلا أصلي 400 غ', price: 70000, category: 'biscuits', subcat: 'شوكولا الدهن', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1553456558-aff63285bdd1?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b58', name: 'نوتيلا أصلي 200 غ', price: 45000, category: 'biscuits', subcat: 'شوكولا الدهن', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1553456558-aff63285bdd1?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b59', name: 'نوتيلا ميني 25 غ', price: 13000, category: 'biscuits', subcat: 'شوكولا الدهن', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1553456558-aff63285bdd1?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b60', name: 'نوتيلا مع بسكوت أصابع (جو)', price: 25000, category: 'biscuits', subcat: 'شوكولا الدهن', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1553456558-aff63285bdd1?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b61', name: 'نيوبارك بندق 500 غ', price: 50000, category: 'biscuits', subcat: 'شوكولا الدهن', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1553456558-aff63285bdd1?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b62', name: 'نيوبارك بندق 250 غ', price: 27000, category: 'biscuits', subcat: 'شوكولا الدهن', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1553456558-aff63285bdd1?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'b63', name: 'نيوبارك شوكوديبس 300 غ', price: 22000, category: 'biscuits', subcat: 'شوكولا الدهن', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1553456558-aff63285bdd1?w=450&q=80', placeholder: 'ملاحظات...' },
-
-    // --- 5. الشيبس والسناكس ---
-    { id: 'ch1', name: 'برنغلز كبير (كافة النكهات)', price: 25000, category: 'chips', subcat: 'شيبس', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=450&q=80', placeholder: 'تحديد النكهة: باربيكيو / أصلي / بصل وجبنة...' },
-    { id: 'ch2', name: 'برنغلز صغير', price: 12000, category: 'chips', subcat: 'شيبس', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=450&q=80', placeholder: 'النكهة المفضلة...' },
-    { id: 'ch3', name: 'تاكز نكهات منوعة', price: 35000, category: 'chips', subcat: 'شيبس', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=450&q=80', placeholder: 'حار ليمون / عادي...' },
-    { id: 'ch4', name: 'شيبس لاند فرط (كل النكهات بالكيلو)', price: 35000, category: 'chips', subcat: 'شيبس فرط', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=450&q=80', placeholder: 'كاتشب، جبنة، خل وملح، حار...' },
-    { id: 'ch5', name: 'دارنيتو كبير', price: 5000, category: 'chips', subcat: 'شيبس', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'ch6', name: 'دارنيتو صغير', price: 3000, category: 'chips', subcat: 'شيبس', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'ch7', name: 'لكزس حجم عائلي', price: 20000, category: 'chips', subcat: 'شيبس', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=450&q=80', placeholder: 'النكهة...' },
-    { id: 'ch8', name: 'لكزس كبير', price: 10000, category: 'chips', subcat: 'شيبس', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'ch9', name: 'لكزس وسط', price: 5000, category: 'chips', subcat: 'شيبس', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'ch10', name: 'لكزس صغير', price: 2000, category: 'chips', subcat: 'شيبس', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'ch11', name: 'أرابيكا تورتيلا كبير', price: 15000, category: 'chips', subcat: 'شيبس', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=450&q=80', placeholder: 'جبنة ناتشو / حار...' },
-    { id: 'ch12', name: 'أرابيكا تورتيلا وسط', price: 7000, category: 'chips', subcat: 'شيبس', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'ch13', name: 'ليز حجم عائلي', price: 13000, category: 'chips', subcat: 'شيبس', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=450&q=80', placeholder: 'ملح / فلفل حار / شطة وليمون...' },
-
-    // --- 6. المشروبات والعصائر ---
-    { id: 'd1', name: 'فيمتو السعودي الأصلي', price: 55000, category: 'drinks', subcat: 'مشروبات وعصائر', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'd2', name: 'مشروب طاقة جاك كبير', price: 8000, category: 'drinks', subcat: 'مشروبات طاقة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1622543925917-763c34d1a86e?w=450&q=80', placeholder: 'بارد...' },
-    { id: 'd3', name: 'دارك بلو كبير', price: 8000, category: 'drinks', subcat: 'مشروبات طاقة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1622543925917-763c34d1a86e?w=450&q=80', placeholder: 'بارد...' },
-    { id: 'd4', name: 'إكس إل كبير', price: 10000, category: 'drinks', subcat: 'مشروبات طاقة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1622543925917-763c34d1a86e?w=450&q=80', placeholder: 'بارد...' },
-    { id: 'd5', name: 'بايسون كبير', price: 10000, category: 'drinks', subcat: 'مشروبات طاقة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1622543925917-763c34d1a86e?w=450&q=80', placeholder: 'بارد...' },
-    { id: 'd6', name: 'بايسون سعودي صغير', price: 13000, category: 'drinks', subcat: 'مشروبات طاقة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1622543925917-763c34d1a86e?w=450&q=80', placeholder: 'بارد...' },
-    { id: 'd7', name: 'ريدبول نمساوي أصلي صغير', price: 25000, category: 'drinks', subcat: 'مشروبات طاقة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1622543925917-763c34d1a86e?w=450&q=80', placeholder: 'بارد جداً...' },
-    { id: 'd8', name: 'جاك صغير', price: 7000, category: 'drinks', subcat: 'مشروبات طاقة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1622543925917-763c34d1a86e?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'd9', name: 'دارك بلو صغير', price: 6000, category: 'drinks', subcat: 'مشروبات طاقة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1622543925917-763c34d1a86e?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'd10', name: 'ريد آند بلو صغير', price: 8000, category: 'drinks', subcat: 'مشروبات طاقة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1622543925917-763c34d1a86e?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'd11', name: 'جاك نعنع صغير', price: 8000, category: 'drinks', subcat: 'مشروبات طاقة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1622543925917-763c34d1a86e?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'd12', name: 'كود رد صغير', price: 13000, category: 'drinks', subcat: 'مشروبات طاقة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1622543925917-763c34d1a86e?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'd13', name: 'إكس إل صغير', price: 7000, category: 'drinks', subcat: 'مشروبات طاقة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1622543925917-763c34d1a86e?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'd14', name: 'فور يو أبو جنة صغير أزرق', price: 10000, category: 'drinks', subcat: 'مشروبات طاقة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1622543925917-763c34d1a86e?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'd15', name: 'فور يو أبو جنة صغير أحمر', price: 10000, category: 'drinks', subcat: 'مشروبات طاقة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1622543925917-763c34d1a86e?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'd16', name: 'فور يو أبو جنة صغير نهدي', price: 10000, category: 'drinks', subcat: 'مشروبات طاقة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1622543925917-763c34d1a86e?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'd17', name: 'إكسترون', price: 10000, category: 'drinks', subcat: 'مشروبات طاقة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1622543925917-763c34d1a86e?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'd18', name: 'بي إم ميني', price: 5000, category: 'drinks', subcat: 'مشروبات طاقة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1622543925917-763c34d1a86e?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'd19', name: 'إكس إل ميني', price: 6000, category: 'drinks', subcat: 'مشروبات طاقة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1622543925917-763c34d1a86e?w=450&q=80', placeholder: 'ملاحظات...' },
-
-    { id: 'd20', name: 'مشروب غازي تنك ميني (بيبسي / سفن / ميرندا)', price: 4000, category: 'drinks', subcat: 'مشروبات غازية', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=450&q=80', placeholder: 'تحديد النوع: بيبسي / سفن / ميرندا...' },
-    { id: 'd21', name: 'مشروب غازي بوري (بيبسي / سفن / ميرندا)', price: 6000, category: 'drinks', subcat: 'مشروبات غازية', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=450&q=80', placeholder: 'تحديد النوع...' },
-    { id: 'd22', name: 'مشروب غازي دبة (بيبسي / سفن / ميرندا / فينيتو)', price: 8000, category: 'drinks', subcat: 'مشروبات غازية', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=450&q=80', placeholder: 'تحديد النوع...' },
-    { id: 'd23', name: 'بيبسي دايت دبة', price: 8000, category: 'drinks', subcat: 'مشروبات غازية', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=450&q=80', placeholder: 'بارد...' },
-    { id: 'd24', name: 'مشروب غازي زجاج (بيبسي / سفن / ميرندا)', price: 8000, category: 'drinks', subcat: 'مشروبات غازية', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=450&q=80', placeholder: 'تحديد النوع...' },
-    { id: 'd25', name: 'مشروب غازي 1 لتر (بيبسي / سفن / ميرندا / دايت)', price: 10000, category: 'drinks', subcat: 'مشروبات غازية', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=450&q=80', placeholder: 'تحديد النوع...' },
-    { id: 'd26', name: 'مشروب غازي عائلي (بيبسي / سفن / ميرندا)', price: 18000, category: 'drinks', subcat: 'مشروبات غازية', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=450&q=80', placeholder: 'تحديد النوع...' },
-
-    { id: 'd27', name: 'نيوبارك حليب لتر (شوكولا / موز / فريز / سادة)', price: 15000, category: 'drinks', subcat: 'حليب وألبان', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=450&q=80', placeholder: 'تحديد النكهة: شوكولا / موز / فريز...' },
-    { id: 'd28', name: 'نيوبارك حليب صغير (شوكولا / موز / فريز / سادة)', price: 4000, category: 'drinks', subcat: 'حليب وألبان', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=450&q=80', placeholder: 'تحديد النكهة...' },
-    { id: 'd29', name: 'نيوبارك عيران صغير', price: 5000, category: 'drinks', subcat: 'حليب وألبان', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'd30', name: 'حليب المراعي (شوكولا / فريز / موز)', price: 5000, category: 'drinks', subcat: 'حليب وألبان', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=450&q=80', placeholder: 'تحديد النكهة...' },
-
-    { id: 'd31', name: 'عصير أورجينال 1.5 لتر (جوافة / برتقال / منغا)', price: 25000, category: 'drinks', subcat: 'عصائر', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?w=450&q=80', placeholder: 'تحديد النكهة...' },
-    { id: 'd32', name: 'عصير أورجينال 1 لتر (منغا / برتقال)', price: 20000, category: 'drinks', subcat: 'عصائر', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?w=450&q=80', placeholder: 'تحديد النكهة...' },
-    { id: 'd33', name: 'أورجينال حبيبات (أناناس / خوخ / منغا / برتقال)', price: 7000, category: 'drinks', subcat: 'عصائر', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?w=450&q=80', placeholder: 'تحديد النكهة...' },
-    { id: 'd34', name: 'أورجينال زجاج (خوخ / منغا / برتقال / جزر)', price: 5000, category: 'drinks', subcat: 'عصائر', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1613478223719-2ab802602423?w=450&q=80', placeholder: 'تحديد النكهة...' },
-
-    { id: 'd35', name: 'باربيكان زجاج (كافة النكهات)', price: 13000, category: 'drinks', subcat: 'شعير وموهيتو', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1608270586620-248524c67de9?w=450&q=80', placeholder: 'أناناس / فريز / سادة / رمان / تفاح...' },
-    { id: 'd36', name: 'باربيكان تنك (كافة النكهات)', price: 8000, category: 'drinks', subcat: 'شعير وموهيتو', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1608270586620-248524c67de9?w=450&q=80', placeholder: 'تحديد النكهة...' },
-    { id: 'd37', name: 'باربيكان بوري (كافة النكهات)', price: 6000, category: 'drinks', subcat: 'شعير وموهيتو', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1608270586620-248524c67de9?w=450&q=80', placeholder: 'تحديد النكهة...' },
-    { id: 'd38', name: 'ريتا زجاج (ليمون ونعنع / بلو / ريد / موهيتو)', price: 10000, category: 'drinks', subcat: 'شعير وموهيتو', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=450&q=80', placeholder: 'تحديد النكهة...' },
-    { id: 'd39', name: 'زويا زجاج (أناناس / عنب / فريز / جوز هند / منغا / رمان / كيوي)', price: 6000, category: 'drinks', subcat: 'شعير وموهيتو', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=450&q=80', placeholder: 'تحديد النكهة...' },
-
-    { id: 'd40', name: 'أورجينال موكا / كابتشينو مثلج', price: 12000, category: 'drinks', subcat: 'قهوة مثلجة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=450&q=80', placeholder: 'موكا أو كابتشينو...' },
-    { id: 'd41', name: 'سيتي كافيه قهوة مثلجة (كراميلا / قهوة / أورجينال)', price: 9000, category: 'drinks', subcat: 'قهوة مثلجة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=450&q=80', placeholder: 'تحديد النكهة...' },
-    { id: 'd42', name: 'لونا موكا / كابتشينو مثلج', price: 10000, category: 'drinks', subcat: 'قهوة مثلجة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1517701550927-30cf4ba1dba5?w=450&q=80', placeholder: 'تحديد النكهة...' },
-
-    // --- 7. البوظة والسلاش ---
-    { id: 'i1', name: 'بوظة عربية فستق حبة كاملة (كيلو)', price: 140000, category: 'icecream', subcat: 'بوظة عربية', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=450&q=80', placeholder: 'إكسترا قشطة / فستق...' },
-    { id: 'i2', name: 'بوظة عربية فستق فلق (كيلو)', price: 120000, category: 'icecream', subcat: 'بوظة عربية', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'i3', name: 'بوظة عربية فستق مبروش (كيلو)', price: 110000, category: 'icecream', subcat: 'بوظة عربية', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'i4', name: 'بوظة كرات جميع النكهات (كيلو)', price: 55000, category: 'icecream', subcat: 'بوظة كرات', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=450&q=80', placeholder: 'تحديد النكهات: فانيليا، شوكولا، فريز...' },
-    { id: 'i5', name: 'سلاش كبير (توت أزرق / فريز / توت / مكس)', price: 5000, category: 'icecream', subcat: 'سلاش', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=450&q=80', placeholder: 'تحديد النكهة أو خلط...' },
-    { id: 'i6', name: 'سلاش وسط (توت أزرق / فريز / توت / مكس)', price: 3000, category: 'icecream', subcat: 'سلاش', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=450&q=80', placeholder: 'تحديد النكهة...' },
-    { id: 'i7', name: 'سلاش صغير (توت أزرق / فريز / توت / مكس)', price: 2000, category: 'icecream', subcat: 'سلاش', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=450&q=80', placeholder: 'تحديد النكهة...' },
-    { id: 'i8', name: 'بوظة أمية (كافة الأصناف)', price: 0, category: 'icecream', subcat: 'معلبات بوظة', isWeight: false, available: true, customPriceText: 'حسب الصنف', img: 'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=450&q=80', placeholder: 'اكتب الصنف المطلوب...' },
-    { id: 'i9', name: 'بوظة مولر (كافة الأصناف)', price: 0, category: 'icecream', subcat: 'معلبات بوظة', isWeight: false, available: true, customPriceText: 'حسب الصنف', img: 'https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=450&q=80', placeholder: 'اكتب الصنف المطلوب...' },
-
-    // --- 8. العسل والتمور ---
-    { id: 'h1', name: 'عسل بلدي أصلي فاخر', price: 200000, category: 'honey', subcat: 'عسل', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=450&q=80', placeholder: 'سدر / جبلي / زهور...' },
-    { id: 'h2', name: 'عسل طبيعي مع الشمع', price: 200000, category: 'honey', subcat: 'عسل', isWeight: true, available: true, img: 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'h3', name: 'عسل ملكي للرجال ظرف', price: 25000, category: 'honey', subcat: 'عسل', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'h4', name: 'عسل ملكي للنساء ظرف', price: 25000, category: 'honey', subcat: 'عسل', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'h5', name: 'تمر المجهول فاخر 5 كيلو', price: 290000, category: 'honey', subcat: 'تمور', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1560707303-4e980ce876ad?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'h6', name: 'تمر المجهول فاخر 1 كيلو', price: 60000, category: 'honey', subcat: 'تمور', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1560707303-4e980ce876ad?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'h7', name: 'تمور النخيل سطل 5 كيلو', price: 200000, category: 'honey', subcat: 'تمور', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1560707303-4e980ce876ad?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'h8', name: 'تمور النخيل سطل 3 كيلو', price: 100000, category: 'honey', subcat: 'تمور', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1560707303-4e980ce876ad?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'h9', name: 'رطب سكري 1 كيلو', price: 70000, category: 'honey', subcat: 'تمور', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1560707303-4e980ce876ad?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'h10', name: 'ماء زمزم أصلي 5 لتر', price: 120000, category: 'honey', subcat: 'تمور', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1548839140-29a749e1bc4e?w=450&q=80', placeholder: 'ملاحظات...' },
-
-    // --- 9. متفرقات ---
-    { id: 'm1', name: 'إندومي كاربونارا كوري حار', price: 20000, category: 'misc', subcat: 'إندومي ومتة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1612927601601-6638404737ce?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'm2', name: 'إندومي (خضار / دجاج / خضار وليمون)', price: 4000, category: 'misc', subcat: 'إندومي ومتة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1612927601601-6638404737ce?w=450&q=80', placeholder: 'تحديد النكهة...' },
-    { id: 'm3', name: 'متة خارطة 500 غرام', price: 36000, category: 'misc', subcat: 'إندومي ومتة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'm4', name: 'متة خارطة 250 غرام', price: 18000, category: 'misc', subcat: 'إندومي ومتة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'm5', name: 'متة بيبوري 250 غرام', price: 18000, category: 'misc', subcat: 'إندومي ومتة', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=450&q=80', placeholder: 'ملاحظات...' },
-    { id: 'm6', name: 'قداحات شعلة فخمة للمناسبات', price: 10000, category: 'misc', subcat: 'إكسسوارات', isWeight: false, available: true, img: 'https://images.unsplash.com/photo-1582293041079-7814c2f12063?w=450&q=80', placeholder: 'اللون المفضل...' }
-  ];
-
-  // State Management
+  // إدارة الحالة
+  let products = [];
+  let offers = [];
   let currentCategory = 'all';
   let currentSubcat = 'all';
   let searchQuery = '';
   let isDelivery = true;
   let cart = JSON.parse(localStorage.getItem('nahhas_cart') || '[]');
 
-  // Element Selectors
+  // محددات العناصر
   const gridEl = document.getElementById('productsGrid');
   const catNavEl = document.getElementById('categoryNav');
   const subcatEl = document.getElementById('subcatContainer');
   const searchInput = document.getElementById('searchInput');
+  const heroSection = document.getElementById('heroSection');
+  const offersScroller = document.getElementById('offersScroller');
   const cartBubble = document.getElementById('cartBubble');
   const cartCountEl = document.getElementById('cartCount');
   const cartTotalEl = document.getElementById('cartTotal');
@@ -1273,19 +1016,109 @@
   const btnCopyCode = document.getElementById('btnCopyCode');
   const btnConfirmPay = document.getElementById('btnConfirmPay');
 
-  // Format Currency
   function formatPrice(num) {
-    return num.toLocaleString('en-US') + ' ل.س';
+    if (!num && num !== 0) return '0 ل.س';
+    return Number(num).toLocaleString('en-US') + ' ل.س';
   }
 
-  // Render Subcategories
+  // جلب البيانات من السيرفر
+  async function initApp() {
+    try {
+      const [prodRes, offRes] = await Promise.all([
+        fetch(`${SCRIPT_URL}?action=getProducts`),
+        fetch(`${SCRIPT_URL}?action=getOffers`)
+      ]);
+      
+      const prodData = await prodRes.json();
+      const offData = await offRes.json();
+
+      products = (prodData.data || []).map(p => ({
+        ...p,
+        price: Number(p.price) || 0,
+        isWeight: p.isWeight === 'بالوزن' || p.isWeight === true,
+        available: p.available === 'متوفر' || p.available === true,
+        img: p.img || 'https://res.cloudinary.com/dvzg70krq/image/upload/v1787113384/file_000000007c108243a8f3234e7c5df1db_scgh0e.png'
+      }));
+
+      offers = offData.data || [];
+
+      renderOffers();
+      renderCategoryNav();
+      renderSubcategories();
+      renderProducts();
+      updateCartUI();
+    } catch (err) {
+      console.error(err);
+      gridEl.innerHTML = `<div style="grid-column: span 2; text-align:center; padding: 40px; color: var(--burgundy);">تعذر الاتصال بقاعدة البيانات. يرجى إعادة تحديث الصفحة.</div>`;
+    }
+  }
+
+  // بناء عروض السلايدر
+  function renderOffers() {
+    const validOffers = offers.filter(o => o.available === 'متوفر');
+    if (validOffers.length === 0) {
+      heroSection.style.display = 'none';
+      return;
+    }
+
+    offersScroller.innerHTML = '';
+    validOffers.forEach(o => {
+      const card = document.createElement('div');
+      card.className = 'offer-card';
+      card.innerHTML = `
+        <img class="offer-img" src="${o.img || 'https://res.cloudinary.com/dvzg70krq/image/upload/v1787113384/file_000000007c108243a8f3234e7c5df1db_scgh0e.png'}" alt="${o.title}">
+        <div class="offer-card-body">
+          <span class="offer-badge">عرض مميز 🔥</span>
+          <h3 class="offer-title">${o.title}</h3>
+          ${o.description ? `<p class="offer-desc">${o.description}</p>` : ''}
+        </div>
+      `;
+      offersScroller.appendChild(card);
+    });
+
+    heroSection.style.display = 'block';
+  }
+
+  // بناء شريط الأقسام الرئيسية ديناميكياً
+  function renderCategoryNav() {
+    catNavEl.innerHTML = '<button class="cat-btn active" data-cat="all">🌟 الكل</button>';
+    const uniqueCats = [...new Set(products.map(p => (p.category || '').trim()).filter(Boolean))];
+
+    uniqueCats.forEach(cat => {
+      const icon = categoryIcons[cat] || '✨';
+      const btn = document.createElement('button');
+      btn.className = 'cat-btn';
+      btn.dataset.cat = cat;
+      btn.textContent = `${icon} ${cat}`;
+      btn.addEventListener('click', () => {
+        catNavEl.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentCategory = cat;
+        currentSubcat = 'all';
+        renderSubcategories();
+        renderProducts();
+      });
+      catNavEl.appendChild(btn);
+    });
+
+    catNavEl.querySelector('[data-cat="all"]').addEventListener('click', (e) => {
+      catNavEl.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      currentCategory = 'all';
+      currentSubcat = 'all';
+      renderSubcategories();
+      renderProducts();
+    });
+  }
+
+  // بناء الأقسام الفرعية ديناميكياً
   function renderSubcategories() {
     subcatEl.innerHTML = '';
     const filtered = currentCategory === 'all' 
       ? products 
       : products.filter(p => p.category === currentCategory);
     
-    const subcats = ['all', ...new Set(filtered.map(p => p.subcat))];
+    const subcats = ['all', ...new Set(filtered.map(p => (p.subcat || '').trim()).filter(Boolean))];
     if (subcats.length <= 2) return;
 
     subcats.forEach(sub => {
@@ -1301,19 +1134,19 @@
     });
   }
 
-  // Render Products Grid
+  // عرض بطاقات المنتجات
   function renderProducts() {
     gridEl.innerHTML = '';
 
     const list = products.filter(p => {
       const matchCat = currentCategory === 'all' || p.category === currentCategory;
       const matchSub = currentSubcat === 'all' || p.subcat === currentSubcat;
-      const matchSearch = !searchQuery || p.name.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchSearch = !searchQuery || (p.name || '').toLowerCase().includes(searchQuery.toLowerCase());
       return matchCat && matchSub && matchSearch;
     });
 
     if (list.length === 0) {
-      gridEl.innerHTML = `<div style="grid-column: span 2; text-align:center; padding: 40px 10px; color: var(--ink-muted);">لا توجد منتجات مطابقة للبحث.</div>`;
+      gridEl.innerHTML = `<div style="grid-column: span 2; text-align:center; padding: 40px 10px; color: var(--ink-muted);">لا توجد منتجات مطابقة في هذا القسم.</div>`;
       return;
     }
 
@@ -1344,10 +1177,10 @@
           <span class="avail-badge ${p.available ? 'in-stock' : 'out-stock'}">
             ${p.available ? 'متوفر' : 'غير متوفر'}
           </span>
-          <img class="pcard-img" src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=450&q=80'">
+          <img class="pcard-img" src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='https://res.cloudinary.com/dvzg70krq/image/upload/v1787113384/file_000000007c108243a8f3234e7c5df1db_scgh0e.png'">
         </div>
         <div class="pcard-body">
-          <span class="pcard-category">${p.subcat}</span>
+          <span class="pcard-category">${p.subcat || p.category}</span>
           <h4 class="pcard-title">${p.name}</h4>
           ${weightOptions}
           
@@ -1363,7 +1196,7 @@
               <span class="pcard-price" id="price_${p.id}">${initialPriceDisplay}</span>
             </div>
             <button type="button" class="btn-add ${!p.available ? 'disabled' : ''}" data-id="${p.id}" ${!p.available ? 'disabled' : ''}>
-              ${p.available ? '🛒 أضف للطلب' : 'نفدت الكمية'}
+              ${p.available ? '🛒 أضف للطلب' : 'غير متوفر'}
             </button>
           </div>
         </div>
@@ -1375,9 +1208,8 @@
     attachCardEvents();
   }
 
-  // Weight & Stepper Events
+  // أحداث الوزن والكميات والسلة
   function attachCardEvents() {
-    // Weight select change
     document.querySelectorAll('.weight-select').forEach(select => {
       select.addEventListener('change', (e) => {
         const id = e.target.dataset.id;
@@ -1389,7 +1221,6 @@
       });
     });
 
-    // Quantity buttons
     document.querySelectorAll('.btn-qty').forEach(btn => {
       btn.addEventListener('click', () => {
         const id = btn.dataset.id;
@@ -1412,7 +1243,6 @@
       });
     });
 
-    // Add to Cart with Note
     document.querySelectorAll('.btn-add').forEach(btn => {
       btn.addEventListener('click', () => {
         const id = btn.dataset.id;
@@ -1425,7 +1255,6 @@
         const unitPrice = prod.isWeight ? (prod.price * weight) / 1000 : prod.price;
         const itemNote = document.getElementById(`note_${id}`).value.trim();
 
-        // Separate line item if the note is different
         const existingIndex = cart.findIndex(item => item.id === id && item.weight === weight && item.note === itemNote);
         if (existingIndex > -1) {
           cart[existingIndex].qty += qty;
@@ -1435,6 +1264,7 @@
             name: prod.name,
             weight: weight,
             unitPrice: unitPrice,
+            customPriceText: prod.customPriceText,
             qty: qty,
             note: itemNote
           });
@@ -1443,7 +1273,6 @@
         saveCart();
         updateCartUI();
 
-        // Clear note field and show feedback
         document.getElementById(`note_${id}`).value = '';
         btn.textContent = '✓ تمت الإضافة';
         setTimeout(() => {
@@ -1453,7 +1282,6 @@
     });
   }
 
-  // Cart Management
   function saveCart() {
     localStorage.setItem('nahhas_cart', JSON.stringify(cart));
   }
@@ -1481,6 +1309,7 @@
       row.className = 'inv-item';
       const weightText = item.weight ? `(${item.weight >= 1000 ? item.weight/1000 + ' كغ' : item.weight + ' غ'})` : '';
       const noteHtml = item.note ? `<div class="inv-item-note">📝 ${item.note}</div>` : '';
+      const priceDisplay = item.customPriceText ? item.customPriceText : formatPrice(item.unitPrice * item.qty);
 
       row.innerHTML = `
         <div class="inv-item-info">
@@ -1488,7 +1317,7 @@
           <div class="inv-item-sub">${weightText} × ${item.qty}</div>
           ${noteHtml}
         </div>
-        <div class="inv-item-price">${formatPrice(item.unitPrice * item.qty)}</div>
+        <div class="inv-item-price">${priceDisplay}</div>
         <button type="button" class="inv-remove-btn" data-index="${index}">✕</button>
       `;
       invoiceItemsList.appendChild(row);
@@ -1504,25 +1333,11 @@
     });
   }
 
-  // Categories Filter Switch
-  catNavEl.querySelectorAll('.cat-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      catNavEl.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentCategory = btn.dataset.cat;
-      currentSubcat = 'all';
-      renderSubcategories();
-      renderProducts();
-    });
-  });
-
-  // Search Input Event
   searchInput.addEventListener('input', (e) => {
     searchQuery = e.target.value.trim();
     renderProducts();
   });
 
-  // Delivery Toggle
   btnDelivYes.addEventListener('click', () => {
     isDelivery = true;
     btnDelivYes.classList.add('active');
@@ -1537,7 +1352,6 @@
     addressWrap.style.display = 'none';
   });
 
-  // Modals Toggles
   cartBubble.addEventListener('click', () => invoiceModal.classList.add('active'));
   closeInvoice.addEventListener('click', () => invoiceModal.classList.remove('active'));
   btnOpenPay.addEventListener('click', () => {
@@ -1546,7 +1360,6 @@
   });
   closePay.addEventListener('click', () => payModal.classList.remove('active'));
 
-  // Copy Code
   btnCopyCode.addEventListener('click', () => {
     const code = document.getElementById('shamCode').innerText;
     navigator.clipboard.writeText(code).then(() => {
@@ -1555,7 +1368,7 @@
     });
   });
 
-  // Send Order via WhatsApp with Item-Level Notes
+  // إرسال الطلب للواتساب
   btnSendWhatsapp.addEventListener('click', () => {
     if (cart.length === 0) {
       alert('الرجاء إضافة منتجات للسلة أولاً');
@@ -1588,7 +1401,8 @@
       const weightTxt = item.weight ? ` [${item.weight >= 1000 ? item.weight/1000 + ' كغ' : item.weight + ' غ'}]` : '';
       const sub = item.unitPrice * item.qty;
       total += sub;
-      msg += `\n${i+1}. *${item.name}*${weightTxt}\n   الكمية: ${item.qty} | السعر: ${formatPrice(sub)}`;
+      const itemPriceTxt = item.customPriceText ? item.customPriceText : formatPrice(sub);
+      msg += `\n${i+1}. *${item.name}*${weightTxt}\n   الكمية: ${item.qty} | السعر: ${itemPriceTxt}`;
       if (item.note) {
         msg += `\n   ↳ 📌 *ملاحظة:* ${item.note}`;
       }
@@ -1601,16 +1415,13 @@
     window.open(waUrl, '_blank');
   });
 
-  // Confirm Pay WhatsApp
   btnConfirmPay.addEventListener('click', () => {
     const msg = `مرحباً محمصة النحاس، قمت بتحويل مبلغ الطلب عبر شام كاش إلى الحساب (SHAM-991457935)، يرجى تأكيد الاستلام وتجهيز الطلب.`;
     window.open(`https://wa.me/963991457935?text=${encodeURIComponent(msg)}`, '_blank');
   });
 
-  // Initialize
-  renderSubcategories();
-  renderProducts();
-  updateCartUI();
+  // تشغيل التطبيق
+  initApp();
 </script>
 
 </body>
